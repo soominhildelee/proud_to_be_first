@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proud to be First — Georgia Tech first-gen resource hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#003057; --gold:#B3A369; --buzz:#EAAA00;
+  --bg:#F6F7F9; --surface:#FFFFFF; --ink:#13213A; --muted:#5A667A; --line:#D9DEE6;
+  --hero-bg:#003057; --hero-ink:#FFFFFF; --hero-muted:#B9C7D8;
+  --chip:#EEF1F5; --focus:#EAAA00;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1626; --surface:#102036; --ink:#E8EDF4; --muted:#9AA9BD; --line:#22344D;
+    --hero-bg:#061222; --hero-ink:#F4F6F9; --hero-muted:#9FB2C9; --chip:#18304D;
+    --gold:#C9BA7E; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1626; --surface:#102036; --ink:#E8EDF4; --muted:#9AA9BD; --line:#22344D;
+  --hero-bg:#061222; --hero-ink:#F4F6F9; --hero-muted:#9FB2C9; --chip:#18304D;
+  --gold:#C9BA7E; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+img{max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* Top bar */
+.bar{background:var(--hero-bg);color:var(--hero-ink)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;letter-spacing:-.01em}
+.brand span[aria-hidden]{font-size:22px}
+.bar nav a{color:var(--hero-muted);text-decoration:none;margin-left:22px;font-size:15px}
+.bar nav a:hover{color:var(--hero-ink)}
+@media (max-width:640px){.bar nav a.opt{display:none}}
+
+/* Hero */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:56px 0 0;overflow:hidden}
+.hero h1{font-size:clamp(44px,8.4vw,108px);line-height:.94;letter-spacing:-.035em;font-weight:800;margin:0;max-width:11ch}
+.hero p.lede{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.6;color:var(--hero-muted);max-width:56ch;margin:28px 0 0}
+.finger{display:inline-block;transform-origin:50% 90%;animation:raise 1.1s cubic-bezier(.2,.9,.3,1.2) .2s both}
+@keyframes raise{from{transform:translateY(40%) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
+
+/* Pillar navigator: the one bold element */
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid rgba(255,255,255,.18)}
+.pillar{appearance:none;background:none;border:0;color:var(--hero-ink);text-align:left;padding:22px 20px 26px;cursor:pointer;border-right:1px solid rgba(255,255,255,.18);font-family:var(--display);position:relative}
+.pillar:last-child{border-right:0}
+.pillar .word{display:block;font-size:clamp(30px,4.4vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.pillar .what{display:block;margin-top:8px;font-size:15px;color:var(--hero-muted)}
+.pillar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--buzz);transform:scaleY(0);transform-origin:bottom;transition:transform .2s}
+.pillar[aria-selected="true"]{background:rgba(255,255,255,.06)}
+.pillar[aria-selected="true"]::after{transform:scaleY(1)}
+.pillar[aria-selected="true"] .word{color:var(--buzz)}
+.pillar:hover .word{color:var(--buzz)}
+@media (max-width:760px){
+  .pillars{grid-template-columns:1fr 1fr}
+  .pillar:nth-child(2){border-right:0}
+  .pillar:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.18)}
+}
+
+/* Topic panel */
+.panel{background:var(--surface);border-bottom:1px solid var(--line)}
+.panel .wrap{padding-top:40px;padding-bottom:48px}
+.panel-intro{font-family:var(--serif);color:var(--muted);max-width:60ch;margin:0 0 28px;font-size:18px}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:36px 40px}
+.group h3{font-size:20px;margin:0 0 10px;letter-spacing:-.01em}
+.group ul{list-style:none;margin:0;padding:0}
+.group li{border-top:1px solid var(--line)}
+.group li:last-child{border-bottom:1px solid var(--line)}
+.topic{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 2px;text-decoration:none;font-size:16px}
+a.topic{font-weight:600}
+a.topic:hover{color:var(--navy)}
+:root[data-theme="dark"] a.topic:hover{color:var(--buzz)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) a.topic:hover{color:var(--buzz)}}
+.tag{font-size:12.5px;padding:3px 9px;border-radius:999px;background:var(--chip);color:var(--muted);white-space:nowrap;font-weight:400}
+.tag.ready{background:var(--buzz);color:#13213A;font-weight:600}
+
+/* Sections */
+section.block{padding:72px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+@media (max-width:800px){.two{grid-template-columns:1fr;gap:40px}}
+h2{font-size:clamp(28px,3.4vw,40px);letter-spacing:-.025em;line-height:1.08;margin:0 0 18px}
+.prose{font-family:var(--serif);font-size:18.5px;line-height:1.7;max-width:62ch}
+.prose p{margin:0 0 1em}
+.how{list-style:none;padding:0;margin:0}
+.how li{padding:18px 0;border-top:1px solid var(--line)}
+.how li:last-child{border-bottom:1px solid var(--line)}
+.how strong{display:block;font-size:19px;margin-bottom:4px}
+.how span{font-family:var(--serif);color:var(--muted);font-size:17px}
+
+.soon{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.empty{border:2px dashed var(--line);border-radius:14px;padding:26px;font-family:var(--serif);color:var(--muted)}
+.empty strong{display:block;font-family:var(--display);color:var(--ink);font-size:19px;margin-bottom:6px}
+
+footer{padding:48px 0 64px;color:var(--muted);font-size:15px}
+footer .team{font-size:17px;color:var(--ink);margin:0 0 6px}
+
+/* Guide reader */
+.reader{display:none;background:var(--bg)}
+body.reading .home{display:none}
+body.reading .reader{display:block}
+.reader-head{background:var(--hero-bg);color:var(--hero-ink);padding:36px 0 40px}
+.back{display:inline-block;color:var(--hero-muted);text-decoration:none;font-size:15px;margin-bottom:18px}
+.back:hover{color:var(--hero-ink)}
+.reader-head .crumb{color:var(--buzz);font-weight:600;font-size:15px;margin:0 0 6px}
+.reader-head h1{font-size:clamp(36px,6vw,68px);letter-spacing:-.035em;line-height:1;margin:0}
+.reader-head .meta{font-family:var(--serif);color:var(--hero-muted);margin:16px 0 0;font-size:16px}
+.reader-body{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:56px;padding-top:44px;padding-bottom:72px}
+@media (max-width:880px){.reader-body{grid-template-columns:1fr;gap:32px}}
+.guide{font-family:var(--serif);font-size:18.5px;line-height:1.7;max-width:66ch}
+.guide h2{font-family:var(--display);font-size:30px;margin:44px 0 12px}
+.guide h2:first-child{margin-top:0}
+.guide h3{font-family:var(--display);font-size:21px;margin:30px 0 8px;letter-spacing:-.01em}
+.guide ul,.guide ol{padding-left:1.25em;margin:0 0 1em}
+.guide li{margin:.35em 0}
+.guide li ul{margin:.3em 0 .4em}
+.guide a{color:var(--navy);text-decoration-thickness:1px;text-underline-offset:2px}
+:root[data-theme="dark"] .guide a{color:var(--buzz)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .guide a{color:var(--buzz)}}
+.guide mark{background:transparent;box-shadow:inset 0 -.42em 0 rgba(234,170,0,.38);color:inherit;font-weight:600}
+.pillars3{counter-reset:p;list-style:none;padding:0!important}
+.pillars3 li{counter-increment:p;position:relative;padding:14px 0 14px 54px;border-top:1px solid var(--line)}
+.pillars3 li:last-child{border-bottom:1px solid var(--line)}
+.pillars3 li::before{content:counter(p);position:absolute;left:0;top:10px;font-family:var(--display);font-weight:800;font-size:30px;color:var(--gold)}
+.callout{background:var(--surface);border-left:5px solid var(--buzz);padding:16px 20px;border-radius:0 10px 10px 0;margin:18px 0}
+aside.side{align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px)}
+.side .box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:18px}
+.side h4{margin:0 0 10px;font-size:16px}
+.side ul{list-style:none;margin:0;padding:0}
+.side li{padding:6px 0;font-size:15.5px}
+.side a{color:var(--navy);font-weight:600}
+:root[data-theme="dark"] .side a{color:var(--buzz)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .side a{color:var(--buzz)}}
+.side p{margin:0;font-size:15px;color:var(--muted);font-family:var(--serif)}
+.contribute{margin-top:36px}
+
+.links{display:grid;gap:12px;margin:14px 0 8px}
+.link{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-family:var(--display)}
+.link:hover{border-color:var(--gold)}
+.link b{display:block;font-size:17px}
+.link span{display:block;font-family:var(--serif);color:var(--muted);font-size:16px;line-height:1.5;margin-top:2px}
+.link small{display:block;color:var(--gold);font-size:13px;margin-top:6px}
+.tag.res{background:var(--navy);color:#fff}
+:root[data-theme="dark"] .tag.res{background:#2B4A73}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tag.res{background:#2B4A73}}
+.year{border-top:1px solid var(--line);padding-top:6px}
+
+.urgent{background:var(--buzz);color:#13213A}
+.urgent .wrap{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px}
+.urgent p{margin:0;font-size:16.5px}
+.urgent a{font-weight:700;color:#13213A}
+.upcoming{padding:56px 0 8px}
+.upcoming h2{margin-bottom:6px}
+.upcoming .sub{font-family:var(--serif);color:var(--muted);margin:0 0 22px}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.dl a{display:block;text-decoration:none;border-top:6px solid var(--navy);background:var(--surface);padding:16px 18px 18px;border-radius:0 0 12px 12px}
+:root[data-theme="dark"] .dl a{border-top-color:var(--buzz)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dl a{border-top-color:var(--buzz)}}
+.dl .when{display:block;font-weight:800;font-size:22px;letter-spacing:-.02em}
+.dl .what{display:block;font-weight:600;margin-top:4px}
+.dl .why{display:block;font-family:var(--serif);color:var(--muted);font-size:15.5px;margin-top:6px}
+.cal{list-style:none;padding:0!important;margin:0 0 1em}
+.cal li{display:grid;grid-template-columns:118px 1fr;gap:14px;border-top:1px solid var(--line);padding:14px 0;margin:0}
+.cal li:last-child{border-bottom:1px solid var(--line)}
+.cal .m{font-family:var(--display);font-weight:800;font-size:17px;line-height:1.3}
+.cal .m small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.cal b{font-family:var(--display)}
+@media (max-width:520px){.cal li{grid-template-columns:1fr;gap:4px}}
+dl.gloss{margin:0}
+dl.gloss dt{font-family:var(--display);font-weight:700;font-size:18px;margin-top:18px}
+dl.gloss dd{margin:2px 0 0}
+.steps{counter-reset:s;list-style:none;padding:0!important}
+.steps>li{counter-increment:s;position:relative;padding:12px 0 12px 46px;border-top:1px solid var(--line);margin:0}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:10px;width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;font-family:var(--display);font-weight:800;display:grid;place-items:center;font-size:16px}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#/"><span aria-hidden="true">☝️</span>Proud to be First</a>
+    <nav aria-label="Main">
+      <a href="#hub" data-home>Resources</a>
+      <a class="opt" href="#about" data-home>About</a>
+      <a class="opt" href="#community" data-home>Community</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HOME -->
+<main class="home" id="home">
+  <div class="urgent"><div class="wrap"><p>Short on food, money or housing this week, or just not okay?</p><a href="#/guide/help-now">Get help now</a></div></div>
+  <div class="hero">
+    <div class="wrap">
+      <h1>First in your family. <span class="finger" aria-hidden="true">☝️</span><br>Not on your own.</h1>
+      <p class="lede">A one-stop guide for first-generation students at Georgia Tech. Pick where you are right now. Every topic has a student-written guide or a short list of the GT offices that can actually help.</p>
+
+      <div class="pillars" id="hub" role="tablist" aria-label="Resource areas">
+        <button class="pillar" role="tab" id="t-plan" aria-controls="panel" data-p="plan"><span class="word">Plan</span><span class="what">Registration and life after GT</span></button>
+        <button class="pillar" role="tab" id="t-involve" aria-controls="panel" data-p="involve"><span class="word">Involve</span><span class="what">Research, clubs and campus jobs</span></button>
+        <button class="pillar" role="tab" id="t-advise" aria-controls="panel" data-p="advise"><span class="word">Advise</span><span class="what">Career prep and advisors</span></button>
+        <button class="pillar" role="tab" id="t-learn" aria-controls="panel" data-p="learn"><span class="word">Learn</span><span class="what">Core classes and housing</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel" role="tabpanel" aria-live="polite">
+    <div class="wrap"><p class="panel-intro" id="panel-intro"></p><div class="groups" id="groups"></div></div>
+  </div>
+
+  <section class="upcoming" id="deadlines">
+    <div class="wrap">
+      <h2>Coming up next</h2>
+      <p class="sub">The money and opportunity deadlines nobody tells you about.</p>
+      <div class="dl" id="dl"></div>
+      <p class="sub" style="margin-top:16px"><a href="#/guide/calendar">See the full year</a></p>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap two">
+      <div>
+        <h2>Why this exists</h2>
+        <div class="prose">
+          <p>First-generation students at Georgia Tech face challenges that nobody at home has been through before, and the support built for them is scattered across dozens of offices and web pages. Without one place to look, it is hard to find critical information or to meet the peers who understand.</p>
+          <p>Proud to be First brings those resources into one hub, so you spend less time searching and more time on the college experience you came for.</p>
+        </div>
+      </div>
+      <div>
+        <h2>How to use it</h2>
+        <ul class="how">
+          <li><strong>Read the guides</strong><span>Step-by-step guides on the academic journey, from career fairs to financial aid to coursework. Written by students and checked by GT staff.</span></li>
+          <li><strong>Find people who get it</strong><span>Recommendations for where to get advice and mentorship from people who know what being first-gen is like.</span></li>
+          <li><strong>Ask a question</strong><span>Every topic links straight to the official GT office that can help. A question form is on the way, and answers will turn into new guides.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block soon" id="community">
+    <div class="wrap two">
+      <div>
+        <h2>Student spotlights</h2>
+        <div class="empty"><strong>First stories coming soon</strong>First-gen Jackets sharing how they found their way. Want to be featured? Reach out to the team below.</div>
+      </div>
+      <div>
+        <h2>Upcoming events</h2>
+        <div class="empty"><strong>Event calendar coming soon</strong>Until then, First-Generation Student Initiatives posts first-gen events like Celebration Week and the Recognition Ceremony on <a href="https://firstgen.gatech.edu/" target="_blank" rel="noopener">firstgen.gatech.edu</a>.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="team">Made by Georgia Tech alumna Soomin Lee, with help from teammates Beth and Ben.</p>
+      <p>A Teams for Tech project at Georgia Tech. Guides are written by students; always confirm deadlines with the official GT office.</p>
+    </div>
+  </footer>
+</main>
+
+<!-- GUIDE READER -->
+<main class="reader" id="reader" aria-live="polite">
+  <div class="reader-head"><div class="wrap">
+    <a class="back" href="#/">← All resources</a>
+    <p class="crumb" id="r-crumb"></p>
+    <h1 id="r-title"></h1>
+    <p class="meta" id="r-meta"></p>
+  </div></div>
+  <div class="wrap reader-body">
+    <article class="guide" id="r-body"></article>
+    <aside class="side" id="r-side"></aside>
+  </div>
+</main>
+
+<script>
+/* ---------- Official GT resources ---------- */
+const R = {
+  ex1553:{n:"MATH 1553 exam archive (Prof. Jankowski)",u:"https://chrisj.math.gatech.edu/past-1553-exams.html",d:"Years of past MATH 1553 midterms and finals with full solutions, posted by the course coordinator."},
+  ila:{n:"Interactive Linear Algebra (GT)",u:"https://textbooks.math.gatech.edu/ila/",d:"A free online linear algebra textbook written by GT math faculty and used in MATH 1553."},
+  phys2211:{n:"PHYS 2211 archived course site",u:"https://introphys.gatech.edu/2019/Fall/2211/",d:"Archived site from the traditional PHYS 2211 sections, with old quizzes and solutions."},
+  phys2212:{n:"PHYS 2212 archived course site",u:"https://introphys.gatech.edu/2019/Fall/2212/",d:"Archived site from the traditional PHYS 2212 sections, with old quizzes and solutions."},
+  earna:{n:"How to Earn an A in Physics",u:"https://introphys.gatech.edu/2020/Fall/2211/Policies/EarnAnA/EarnAnAspr09.html",d:"Advice collected from GT students who earned an A in PHYS 2211."},
+  chem1310:{n:"CHEM 1310 archived course site (Dr. Williams)",u:"https://williams.chemistry.gatech.edu/course_Information/1310/index.html",d:"An older GT general chemistry course page with a Previous Exams section."},
+  ece2020:{n:"ECE 2020 exam archive",u:"https://ece2020.ece.gatech.edu/exams/index.html",d:"Past exams and solutions for Fundamentals of Digital Design, organized by term and instructor."},
+  isye2027:{n:"ISyE 2027 old tests (Prof. Foley)",u:"https://www2.isye.gatech.edu/people/faculty/Robert_Foley/classes/2027/ie2027.html",d:"Many old tests for Applications of Probability."},
+  syllabi:{n:"GT Syllabus Repository",u:"https://syllabus.gatech.edu/",d:"Official syllabi for current and past GT courses. Check exam formats and policies on past materials before you register."},
+  critique:{n:"Course Critique",u:"https://critique.gatech.edu/",d:"SGA's database of past grade distributions by course and professor, plus a syllabus repository."},
+  osi:{n:"Office of Student Integrity",u:"https://osi.gatech.edu/",d:"Questions about the Honor Code, including what study materials are allowed."},
+  khan:{n:"Khan Academy",u:"https://www.khanacademy.org/",d:"Free short lessons and practice exercises for math, chemistry, biology and physics."},
+  leonard:{n:"Professor Leonard (YouTube)",u:"https://www.youtube.com/@ProfessorLeonard",d:"Full-length calculus and differential equations lectures, explained slowly with lots of examples."},
+  threeb:{n:"3Blue1Brown",u:"https://www.3blue1brown.com/",d:"Visual explanations, including the Essence of Calculus and Essence of Linear Algebra series."},
+  pauls:{n:"Paul's Online Math Notes",u:"https://tutorial.math.lamar.edu/",d:"Free notes and worked practice problems for algebra, Calculus I to III and differential equations."},
+  ocw:{n:"MIT OpenCourseWare",u:"https://ocw.mit.edu/",d:"Free lecture videos, notes and exams from MIT courses, including calculus, linear algebra, chemistry and physics."},
+  orgtutor:{n:"The Organic Chemistry Tutor (YouTube)",u:"https://www.youtube.com/@TheOrganicChemistryTutor",d:"Thousands of short worked-example videos for chemistry, physics and math."},
+  crash:{n:"Crash Course",u:"https://thecrashcourse.com/",d:"Fast-paced video overviews of biology, chemistry, physics and more. Good for big-picture review."},
+  amoeba:{n:"Amoeba Sisters",u:"https://www.amoebasisters.com/",d:"Short, illustrated biology videos on cells, genetics and more."},
+  flipping:{n:"Flipping Physics",u:"https://www.flippingphysics.com/",d:"Free videos and worked problems for intro mechanics and electricity and magnetism."},
+  py4e:{n:"Python for Everybody",u:"https://www.py4e.com/",d:"A free beginner Python course with a textbook, videos and exercises."},
+  cs50:{n:"Harvard CS50",u:"https://cs50.harvard.edu/x/",d:"Harvard's free intro to computer science, with full lectures and problem sets."},
+  matlab:{n:"MATLAB Onramp",u:"https://matlabacademy.mathworks.com/",d:"MathWorks' free self-paced intro to MATLAB."},
+  owl:{n:"Purdue OWL",u:"https://owl.purdue.edu/",d:"Free guides to essay structure, grammar and citation styles like APA and MLA."},
+  createx:{n:"CREATE-X",u:"https://create-x.gatech.edu/",d:"GT's startup program for every major: a startup class, prototyping grants, and a summer accelerator with seed funding."},
+  ods:{n:"Office of Disability Services",u:"https://disabilityservices.gatech.edu/",d:"Accommodations for learning, attention, mental health, chronic health, mobility and other disabilities, temporary or permanent."},
+  standing:{n:"Registrar: Academic standing",u:"https://registrar.gatech.edu/info/academic-standing",d:"The official rules for good standing, warning, probation and dismissal."},
+  openstax:{n:"OpenStax",u:"https://openstax.org/",d:"Free, peer-reviewed textbooks for intro calculus, chemistry, biology and physics."},
+  omed:{n:"OMED Academic Support",u:"https://omed.gatech.edu/",d:"Study sessions and tutoring in core math, science and engineering courses."},
+  shpep:{n:"Summer Health Professions Education Program (SHPEP)",u:"https://www.shpep.org/",d:"Free six-week summer program for first- and second-year students exploring health careers. Many sites cover housing, meals and a stipend."},
+  accesslex:{n:"AccessLex",u:"https://www.accesslex.org/",d:"Free nonprofit help with paying for law school: one-on-one financial advising, a scholarship database and webinars."},
+  lexpipe:{n:"AccessLex pre-law program directory",u:"https://www.accesslex.org/accesslex-diversity-pipeline-program-directory",d:"Searchable list of pre-law summer programs, including free ones like LSAC's PLUS programs."},
+  pathways:{n:"Pathways to Science",u:"https://www.pathwaystoscience.org/",d:"Searchable database of paid summer research programs (including REUs), fellowships and grad programs."},
+  isusop:{n:"Annotated SOP examples (Iowa State)",u:"https://iastate.pressbooks.pub/statementofpurpose/",d:"A free online book with real statements of purpose from admitted students, annotated paragraph by paragraph."},
+  commkit:{n:"MIT Communication Lab CommKit",u:"https://mitcommlab.mit.edu/resources/portal-gradapps",d:"Free guides with annotated real examples: SOP, personal statement, NSF GRFP essays and CVs for STEM fields."},
+  cssop:{n:"CS PhD statements of purpose",u:"https://cs-sop.notion.site/",d:"Database of real SOPs shared by past computer science PhD applicants, sortable by year and subfield."},
+  grfpex:{n:"NSF GRFP example essays",u:"https://www.alexhunterlang.com/nsf-fellowship",d:"Collection of funded GRFP personal and research statements. Check the year, because the format has changed."},
+  brownasp:{n:"Free PhD application review programs",u:"https://cs.brown.edu/degrees/doctoral/applications/helpful-resources-applying-computer-science-phd-programs/",d:"List of programs where current PhD students review applications for free. Many other departments run similar programs, so search your field too."},
+  techih:{n:"Tech Interview Handbook",u:"https://www.techinterviewhandbook.org/",d:"Free, open-source guide to coding interviews, behavioral questions and negotiation."},
+  levels:{n:"Levels.fyi",u:"https://www.levels.fyi/",d:"Free salary data by company and level, so you know what a fair offer looks like."},
+  commlab:{n:"Naugle Writing and Communication Center",u:"https://commlab.gatech.edu/",d:"Free 45-minute sessions on personal statements, SOPs, resumes and interview practice. In person or online."},
+  library:{n:"Georgia Tech Library",u:"https://library.gatech.edu/",d:"Search the catalog for MCAT, GRE, LSAT or DAT prep books, or ask a librarian to find a copy for you."},
+  aamc:{n:"AAMC: MCAT and applying to medical school",u:"https://students-residents.aamc.org/",d:"MCAT registration, official prep, the Fee Assistance Program and the AMCAS application."},
+  khanmcat:{n:"Khan Academy MCAT",u:"https://www.khanacademy.org/test-prep/mcat",d:"Free video lessons and practice covering MCAT content."},
+  lawhub:{n:"LSAC LawHub",u:"https://lawhub.lsac.org/",d:"Free official LSAT practice tests and writing prompts. Fee waiver recipients get the full library free."},
+  lsac:{n:"LSAC",u:"https://www.lsac.org/",d:"LSAT registration, the fee waiver program and the Credential Assembly Service for law school applications."},
+  grefee:{n:"GRE Fee Reduction Program",u:"https://ets.org/gre/grefeereduction",d:"A large test-fee discount plus free official practice tests for students with financial need."},
+  gre:{n:"GRE General Test (ETS)",u:"https://www.ets.org/gre.html",d:"Test format, registration and two free POWERPREP practice tests."},
+  studentaid:{n:"FAFSA at StudentAid.gov",u:"https://studentaid.gov/h/apply-for-aid/fafsa",d:"The official, free FAFSA. Never pay a website to file it for you."},
+  gafutures:{n:"GAfutures",u:"https://www.gafutures.org/",d:"Check your HOPE GPA and HOPE / Zell Miller status. Georgia residents only."},
+  star:{n:"STAR: Students' Temporary Assistance and Resources",u:"https://star.studentlife.gatech.edu/",d:"Klemis Kitchen food pantry, Campus Closet, crisis housing and interest-free emergency loans."},
+  counseling:{n:"Counseling Center and CARE",u:"https://counseling.gatech.edu/",d:"Free mental health support. New students start with a CARE assessment, and walk-ins are welcome."},
+  dos:{n:"Dean of Students",u:"https://studentlife.gatech.edu/",d:"If something outside class is making school impossible, start here."},
+  gilman:{n:"Gilman International Scholarship",u:"https://www.gilmanscholarship.org/",d:"Up to $5,000 to study or intern abroad for students receiving a Pell Grant."},
+  oie:{n:"Office of International Education",u:"https://oie.gatech.edu/",d:"GT study abroad programs and advising."},
+  firstgen:{n:"First-Generation Student Initiatives",u:"https://firstgen.gatech.edu/",d:"GT's office for first-gen students: peer mentoring, Celebration Week, the Shadow Program and the Recognition Ceremony."},
+  registrar:{n:"Registrar: Registration",u:"https://registrar.gatech.edu/registration",d:"Step-by-step registration tutorials, the Schedule of Classes, holds, waitlists and drop/withdraw rules."},
+  registrarHome:{n:"Registrar's Office",u:"https://registrar.gatech.edu/",d:"Academic calendars, final exam schedules, Degree Works and forms such as change of major."},
+  advising:{n:"Find your advisor",u:"https://advising.gatech.edu/",d:"Advisor directory for every major, plus pre-professional advisors."},
+  coaching:{n:"Academic Coaching",u:"https://advising.gatech.edu/academic-coaching",d:"One-on-one meetings to build your own plan for study skills, motivation and time management."},
+  finaid:{n:"Office of Scholarships and Financial Aid",u:"https://finaid.gatech.edu/",d:"FAFSA, the GT scholarship application, aid offers and payment questions."},
+  fws:{n:"Federal Work-Study",u:"https://www.finaid.gatech.edu/undergraduate-types-aid/federal-work-study",d:"Part-time jobs for undergrads with financial need. Apply through the FAFSA and the GT App every year."},
+  hrjobs:{n:"Student Employment (GT HR)",u:"https://hr.gatech.edu/student-employment",d:"Eligibility rules, onboarding and pay info for student assistant jobs on campus."},
+  career:{n:"GT Career Center",u:"https://career.gatech.edu/",d:"Career advising, resume reviews, workshops and CareerBuzz, GT's job and internship board."},
+  coop:{n:"Co-ops and internships",u:"https://career.gatech.edu/undergraduate-co-op-internships/",d:"How to register a co-op or internship so it counts on your transcript and keeps you enrolled."},
+  pgpp:{n:"Pre-Graduate and Pre-Professional Advising",u:"https://career.gatech.edu/pre-graduate-and-pre-professional-advising",d:"Advisors for grad school, health, law, teaching and prestigious fellowships."},
+  prehealth:{n:"Pre-Health Advising",u:"http://prehealth.gatech.edu/",d:"Advisors, peer advisors, workshops, a Canvas site and drop-in hours for every health profession."},
+  prelaw:{n:"Pre-Law Advising",u:"http://prelaw.gatech.edu/",d:"Explore legal careers and get help with law school applications."},
+  urop:{n:"Undergraduate Research Opportunities (UROP)",u:"https://urop.gatech.edu/",d:"How to find a lab, research for credit or pay, PURA funding, the Research Option and peer ambassadors."},
+  vip:{n:"Vertically Integrated Projects (VIP)",u:"https://vip.gatech.edu/",d:"Join a faculty-led research team for credit and stay on it for up to three years."},
+  engage:{n:"GT Engage",u:"https://engage.gatech.edu/",d:"Directory of 500+ registered student organizations and their events."},
+  engagement:{n:"Center for Student Engagement",u:"https://studentengagement.gatech.edu/",d:"Student orgs, leadership programs and the org fair each semester."},
+  greek:{n:"Fraternity and Sorority Life",u:"https://greek.gatech.edu/",d:"Four councils and 55 chapters, each with its own recruitment process."},
+  civic:{n:"Civic Engagement and MOVE",u:"https://civic-engagement.gatech.edu/",d:"MOVE plans volunteer trips, the Into the Streets day of service and Alternative Service Breaks."},
+  tutoring:{n:"1-to-1 Tutoring",u:"https://tutoring.gatech.edu/tutoring",d:"Free weekly appointments for most 1000- and 2000-level courses. Book 24 hours to 2 weeks ahead."},
+  plus:{n:"PLUS sessions",u:"https://tutoring.gatech.edu/plus",d:"Free group study led by students who aced the course before you."},
+  dropin:{n:"Drop-in tutoring",u:"https://tutoring.gatech.edu/drop-in",d:"No appointment needed. Covers math, intro and organic chemistry, intro physics and CS 1371."},
+  housing:{n:"Housing and Residence Life",u:"https://housing.gatech.edu/",d:"On-campus housing applications, timelines and living-learning communities."},
+  offcampus:{n:"Off-Campus Housing Marketplace",u:"https://offcampus.housing.gatech.edu/",d:"GT's listing site with roommate and sublease boards and short renter-education modules."}
+};
+const A=(k,t)=>`<a href="${R[k].u}" target="_blank" rel="noopener">${t||R[k].n}</a>`;
+const links = keys => `<div class="links">${keys.map(k=>{const r=R[k];const host=new URL(r.u).hostname.replace(/^www\./,'');
+  return `<a class="link" href="${r.u}" target="_blank" rel="noopener"><b>${r.n}</b><span>${r.d}</span><small>${host}</small></a>`}).join('')}</div>`;
+const sideLinks = (title,keys)=>`<div class="box"><h4>${title}</h4><ul>${keys.map(k=>`<li><a href="${R[k].u}" target="_blank" rel="noopener">${R[k].n}</a></li>`).join('')}</ul></div>`;
+const FIRSTGEN_SIDE = `<div class="box"><h4>You're not the only one</h4><p>First-Generation Student Initiatives can point you to the right office for almost anything. <a href="${R.firstgen.u}" target="_blank" rel="noopener">firstgen.gatech.edu</a></p></div>`;
+
+/* ---------- Pillars ---------- */
+const PILLARS = {
+  plan:{intro:"Map out your semesters, get through registration, pay for school, and start thinking about what comes after graduation.",
+    groups:[
+      {h:"Start here",items:[["College words nobody explained","glossary","g"],["Registration walkthrough","registration","g"],["Four-year timeline","timeline","g"]]},
+      {h:"Money",items:[["FAFSA, step by step","fafsa","g"],["Scholarship and deadline calendar","calendar","g"],["Keeping HOPE and Zell Miller","hope","g"],["Paying for college","money","r"],["Help with food, money and wellbeing","help-now","r"]]},
+      {h:"Post-grad planning",items:[["Pre-health","pre-health","g"],["Pre-industry","pre-industry","g"],["Pre-law","pre-law","g"],["Pre-grad school","pre-grad","g"],["Writing your SOP and personal statement","statements","g"],["Test prep on a budget","test-prep","g"]]}
+    ]},
+  involve:{intro:"Get involved beyond class. Research, clubs, startups and campus jobs are where you find your people and build what goes on your resume.",
+    groups:[
+      {h:"Research",items:[["Getting into a research lab","research","g"],["Vertically Integrated Projects (VIP)","vip","g"]]},
+      {h:"Clubs and community",items:[["First-gen community","first-gen","r"],["Choosing student organizations","orgs","g"],["Greek life","greek","r"],["Volunteering","volunteer","r"]]},
+      {h:"Build something",items:[["Startups and CREATE-X","startups","g"]]},
+      {h:"Work and travel",items:[["Campus job guide","campus-jobs","g"],["Study abroad on a budget","abroad","g"]]}
+    ]},
+  advise:{intro:"Prepare for recruiters and internships, build a circle of mentors, and know what to do when a semester gets hard.",
+    groups:[
+      {h:"Career prep",items:[["Career fair","career-fair","g"],["Resume and LinkedIn","resume","g"],["Internships and co-ops","coop","g"],["Networking without the awkwardness","networking","g"]]},
+      {h:"Mentors and advisors",items:[["Finding mentors","mentors","g"],["How to prepare for your advisor meeting","advisor","g"]]},
+      {h:"When things get hard",items:[["When a semester goes wrong","struggling","g"],["Talking with your family about college","family","g"]]}
+    ]},
+  learn:{intro:"How college classes actually work, where to get help with core courses, and how to spend less on books.",
+    groups:[
+      {h:"Study smarter",items:[["How to study in college","study","g"],["Office hours and emailing professors","office-hours","g"],["Textbooks for less","textbooks","g"],["Old exams and study materials","old-exams","g"],["Disability accommodations","disability","r"]]},
+      {h:"Core classes",items:[["Math","math","r"],["Chemistry","chemistry","r"],["Biology","biology","r"],["Physics","physics","r"],["Computing","computing","r"],["English and writing","writing","r"]]},
+      {h:"Housing",items:[["On- and off-campus housing","housing","r"]]}
+    ]}
+};
+
+/* ---------- Guides ---------- */
+const TUTOR_NOTE = `<p>Every tutoring service below is free for GT students. Going early in the semester, before the first exam, is the move. Tutors and PLUS leaders are students who did well in the course recently.</p>`;
+const GUIDES = {
+  "old-exams":{pillar:"Learn",title:"Old exams and study materials",
+    meta:"Past exams are one of the best ways to study. Use them the right way so they help you, not hurt you.",
+    side:sideLinks("Official links",["critique","osi"]),
+    body:`
+<h2>What the Honor Code says</h2>
+<p>At GT, <mark>each professor decides</mark> whether materials from past semesters, such as old exams, quizzes and homework, are allowed in their course. Some allow them, and some prohibit them. Using prohibited materials is an Honor Code violation, even if a friend gave them to you.</p>
+<div class="callout"><b>Always check the syllabus first.</b> If it doesn't say, email the professor and ask: "Are we allowed to use exams from previous semesters to study?" That one email protects you completely.</div>
+
+<h2>Where to find old exams the right way</h2>
+<ol class="steps">
+  <li><strong>Canvas.</strong> GT encourages professors to share past or practice exams, so many post them in Canvas. Look there first.</li>
+  <li><strong>Ask the professor or TA</strong> for practice problems or a past exam, especially before the first exam.</li>
+  <li><strong>PLUS sessions.</strong> PLUS leaders often build practice problems that match the course's style.</li>
+  <li><strong>Department and library collections.</strong> Some courses keep old exams available to everyone. Ask the professor, TA or a librarian.</li>
+  <li><strong>From friends or older students</strong>, but only after confirming the professor allows it.</li>
+</ol>
+<p>Why the professor's approval matters: when old exams pass around only among friends or certain groups, students without those connections, often first-gen students, are at a disadvantage. Officially shared materials are fair to everyone.</p>
+
+<h2>Past exams posted by GT faculty</h2>
+<p>These are posted publicly by GT professors and departments. Public posting means they're meant to be shared, but still check your current syllabus, since course formats change over time.</p>
+<ul class="cal">
+  <li><span class="m">Math</span><div><b>${A("ex1553","MATH 1553 exam archive")}</b>: years of linear algebra midterms and finals with full solutions, from the course coordinator. The free GT textbook ${A("ila","Interactive Linear Algebra")} is written by GT faculty. For MATH 1551, 1552, 2551 and 2552, we didn't find a public archive, so look for practice exams on Canvas.</div></li>
+  <li><span class="m">Physics</span><div><b>${A("phys2211","PHYS 2211")}</b> and <b>${A("phys2212","PHYS 2212")}</b> archived course sites from the traditional sections, with old quizzes and solutions. Also read ${A("earna","How to Earn an A in Physics")}, advice from GT students who did it. Current sections may use a different format, so pair these with the practice materials in your Canvas course.</div></li>
+  <li><span class="m">Chemistry</span><div>${A("chem1310","An archived CHEM 1310 course page")} with a Previous Exams section. It's from an older semester, so use it for problem practice, not to predict the current exam. Current CHEM 1310 syllabi include practice exams on Canvas.</div></li>
+  <li><span class="m">Biology, computing</span><div>We didn't find public archives. Use Canvas practice materials, PLUS sessions, and ask your professor or TA.</div></li>
+  <li><span class="m">Other courses</span><div>Some departments keep archives too, such as the ${A("ece2020","ECE 2020 exam archive")} and ${A("isye2027","ISyE 2027 old tests")}. Search "[course number] gatech old exams" to find more.</div></li>
+</ul>
+<p>The ${A("syllabi","GT Syllabus Repository")} has official syllabi for most courses, so you can check exam formats and the instructor's policy on past materials before registering.</p>
+
+<h2>How to study with an old exam</h2>
+<ul>
+  <li>Take it timed and closed book, the way you will on exam day. Reading the solutions isn't the same as solving.</li>
+  <li>Grade yourself honestly, and for every miss, write down why.</li>
+  <li>Focus on the type of problem, not the exact problem. Professors usually change the questions.</li>
+</ul>
+
+<h2>Course Critique</h2>
+<p>Before registering, you can look up past grade distributions by course and professor on Course Critique, run by the Student Government Association. It also has a syllabus repository, so you can see a course's structure before you sign up.</p>
+${links(["ex1553","phys2211","phys2212","chem1310","syllabi","critique","osi","plus"])}`},
+
+  "math":{pillar:"Learn",title:"Math",
+    meta:"GT's core math sequence. Calculus is where many first-year students hit their first real wall, and there's a lot of free help.",
+    side:sideLinks("At GT",["dropin","plus","tutoring","omed"]),
+    body:`
+<h2>Courses</h2>
+<ul>
+  <li>Pre-calculus</li>
+  <li>MATH 1551, Calculus I</li>
+  <li>MATH 1552, Calculus II</li>
+  <li>MATH 1553, Linear Algebra</li>
+  <li>MATH 2552, Differential Equations</li>
+</ul>
+<h2>Help at GT</h2>
+${TUTOR_NOTE}
+<ul><li>Drop-in tutoring covers math, so you can walk in with homework.</li><li>Many calculus sections have PLUS sessions.</li></ul>
+<h2>Free videos and practice</h2>
+<ul>
+  <li><strong>${A("leonard","Professor Leonard")}:</strong> full calculus and differential equations lectures, great when your class moves too fast.</li>
+  <li><strong>${A("threeb","3Blue1Brown")}:</strong> watch Essence of Calculus and Essence of Linear Algebra for intuition before diving into problems.</li>
+  <li><strong>${A("pauls","Paul's Online Math Notes")}:</strong> clear notes with worked practice problems for every calculus topic.</li>
+  <li><strong>${A("khan","Khan Academy")}:</strong> short lessons with practice, great for patching gaps in algebra or trig.</li>
+  <li><strong>${A("ocw","MIT OpenCourseWare")}:</strong> free calculus and linear algebra courses, including Gilbert Strang's famous linear algebra lectures.</li>
+  <li><strong>${A("openstax","OpenStax")}:</strong> free calculus textbooks with extra practice problems.</li>
+</ul>
+<h2>Past exams from GT</h2>
+<ul>
+  <li><strong>${A("ex1553","MATH 1553 exam archive")}:</strong> years of past linear algebra exams with full solutions.</li>
+  <li><strong>${A("ila","Interactive Linear Algebra")}:</strong> the free textbook for MATH 1553, written by GT faculty.</li>
+  <li><strong>MATH 1551, 1552, 2551, 2552:</strong> check Canvas for practice exams, and ask in PLUS sessions.</li>
+</ul>
+<p>More on using past exams the right way: <a href="#/guide/old-exams">Old exams and study materials</a>.</p>
+${links(["ex1553","ila","dropin","plus","tutoring","omed","leonard","threeb","pauls","khan","ocw","openstax"])}`},
+
+  "chemistry":{pillar:"Learn",title:"Chemistry",
+    meta:"General and organic chemistry. Practice problems matter more than rereading notes.",
+    side:sideLinks("At GT",["dropin","tutoring","plus","omed"]),
+    body:`
+<h2>Help at GT</h2>
+${TUTOR_NOTE}
+<ul><li>Drop-in tutoring covers both intro and organic chemistry, so you can walk in with a homework problem.</li><li>Check whether your section has PLUS sessions.</li></ul>
+<h2>Free videos and practice</h2>
+<ul>
+  <li><strong>${A("orgtutor","The Organic Chemistry Tutor")}:</strong> short worked examples for almost every general and organic chemistry problem type.</li>
+  <li><strong>${A("khan","Khan Academy")}:</strong> lessons and practice for general chemistry and organic chemistry.</li>
+  <li><strong>${A("crash","Crash Course Chemistry")}:</strong> quick overviews for big-picture review.</li>
+  <li><strong>${A("ocw","MIT OpenCourseWare")}:</strong> full intro chemistry lectures with problem sets and exams.</li>
+  <li><strong>${A("openstax","OpenStax Chemistry")}:</strong> a free textbook with practice problems and answers.</li>
+</ul>
+<div class="callout">For organic chemistry, a cheap molecular model kit helps a lot with 3D structures and stereochemistry. Ask older students if they have one to pass down.</div>
+<h2>Past exams from GT</h2>
+<ul>
+  <li><strong>${A("chem1310","Archived CHEM 1310 course page")}:</strong> an older general chemistry course with a Previous Exams section. Good for practice problems, but the current format may differ.</li>
+  <li><strong>Current courses:</strong> CHEM 1310 syllabi include practice exams on Canvas. Check yours first.</li>
+</ul>
+<p>More on using past exams the right way: <a href="#/guide/old-exams">Old exams and study materials</a>.</p>
+${links(["chem1310","dropin","tutoring","plus","omed","orgtutor","khan","crash","ocw","openstax"])}`},
+
+  "biology":{pillar:"Learn",title:"Biology",
+    meta:"Intro biology courses. Lots of new vocabulary, so steady weekly review beats cramming.",
+    side:sideLinks("At GT",["tutoring","plus"]),
+    body:`
+<h2>Help at GT</h2>
+${TUTOR_NOTE}
+<p>For biology, book 1-to-1 tutoring or check whether your course has PLUS sessions this semester.</p>
+<h2>Free videos and practice</h2>
+<ul>
+  <li><strong>${A("amoeba","Amoeba Sisters")}:</strong> short illustrated videos that make cells, genetics and molecular biology click.</li>
+  <li><strong>${A("khan","Khan Academy")}:</strong> biology lessons with practice questions.</li>
+  <li><strong>${A("crash","Crash Course Biology")}:</strong> fast overviews for review.</li>
+  <li><strong>${A("openstax","OpenStax Biology")}:</strong> a free full textbook, useful even if your class uses a different book.</li>
+  <li><strong>${A("ocw","MIT OpenCourseWare")}:</strong> free intro biology lectures and problem sets.</li>
+</ul>
+<div class="callout">Make flashcards for vocabulary, but also practice explaining processes in your own words, like how a signal moves through a cell. Exams usually test understanding, not just definitions.</div>
+<h2>Past exams</h2>
+<p>We didn't find a public GT archive for intro biology. Look for practice exams in Canvas, ask your professor or TA, and use PLUS sessions. More on using past exams the right way: <a href="#/guide/old-exams">Old exams and study materials</a>.</p>
+${links(["tutoring","plus","amoeba","khan","crash","openstax","ocw"])}`},
+
+  "physics":{pillar:"Learn",title:"Physics",
+    meta:"Intro physics: mechanics, and electricity and magnetism (PHYS 2211 and 2212).",
+    side:sideLinks("At GT",["dropin","plus","tutoring","omed"]),
+    body:`
+<h2>Help at GT</h2>
+${TUTOR_NOTE}
+<ul><li>Drop-in tutoring covers intro physics.</li><li>Many physics courses have PLUS sessions.</li></ul>
+<h2>Free videos and practice</h2>
+<ul>
+  <li><strong>${A("flipping","Flipping Physics")}:</strong> clear videos and worked problems for intro mechanics and E&amp;M.</li>
+  <li><strong>${A("orgtutor","The Organic Chemistry Tutor")}:</strong> despite the name, it has many physics problem walkthroughs.</li>
+  <li><strong>${A("khan","Khan Academy")}:</strong> physics lessons with practice.</li>
+  <li><strong>${A("ocw","MIT OpenCourseWare")}:</strong> free mechanics and E&amp;M courses with problem sets and exams.</li>
+  <li><strong>${A("openstax","OpenStax University Physics")}:</strong> a free textbook covering both semesters.</li>
+</ul>
+<div class="callout">For every problem, draw a picture and write down what you know before touching an equation. Most physics mistakes happen in setup, not in the math.</div>
+<h2>Past exams from GT</h2>
+<ul>
+  <li><strong>${A("phys2211","PHYS 2211 archived site")}</strong> and <strong>${A("phys2212","PHYS 2212 archived site")}:</strong> old quizzes with solutions from the traditional sections.</li>
+  <li><strong>${A("earna","How to Earn an A in Physics")}:</strong> advice from GT students who earned an A. Their top tip is working through past exams.</li>
+  <li><strong>Current courses:</strong> your section may use a different format, so use Canvas practice materials too.</li>
+</ul>
+<p>More on using past exams the right way: <a href="#/guide/old-exams">Old exams and study materials</a>.</p>
+${links(["phys2211","phys2212","earna","dropin","plus","tutoring","omed","flipping","orgtutor","khan","ocw","openstax"])}`},
+
+  "computing":{pillar:"Learn",title:"Computing",
+    meta:"Every GT student takes an intro computing course. If you've never coded before, you're not behind. Many students start from zero.",
+    side:sideLinks("At GT",["dropin","tutoring","plus"]),
+    body:`
+<h2>Courses</h2>
+<p>Most majors take one of these, depending on the major: CS 1301 (Python), CS 1331 (Java) or CS 1371 (MATLAB). Check your degree requirements.</p>
+<h2>Help at GT</h2>
+${TUTOR_NOTE}
+<ul><li>Drop-in tutoring covers CS 1371.</li><li>1-to-1 tutoring and PLUS cover many intro computing courses.</li><li>Start assignments early. Debugging always takes longer than you expect, and TA office hours fill up near deadlines.</li></ul>
+<h2>Free courses and practice</h2>
+<ul>
+  <li><strong>${A("py4e","Python for Everybody")}:</strong> a gentle free Python course for complete beginners. Great before or during CS 1301. GT also offers its own free intro Python course on edX.</li>
+  <li><strong>${A("cs50","Harvard CS50")}:</strong> a free, famous intro to computer science with full lectures.</li>
+  <li><strong>${A("matlab","MATLAB Onramp")}:</strong> MathWorks' free two-hour intro, ideal before CS 1371.</li>
+  <li><strong>${A("ocw","MIT OpenCourseWare")}:</strong> free intro programming courses.</li>
+</ul>
+<div class="callout">Type out code yourself instead of copying and pasting. And check your syllabus for the collaboration policy, since sharing code on homework is often an Honor Code violation.</div>
+${links(["dropin","tutoring","plus","py4e","cs50","matlab","ocw"])}`},
+
+  "writing":{pillar:"Learn",title:"English and writing",
+    meta:"English 1101 and 1102, lab reports, and every essay after that.",
+    side:sideLinks("Get feedback",["commlab","owl"]),
+    body:`
+<h2>Help at GT</h2>
+<p>The Naugle Writing and Communication Center offers free 45-minute sessions, in person or online, for any writing or presentation at any stage, from brainstorming to a final draft. It isn't only for struggling writers. Strong students use it all the time.</p>
+<ul><li>Bring the assignment prompt and whatever you have so far, even if it's just notes.</li><li>Book ahead near midterms and finals.</li><li>They also help with presentations, posters, resumes and personal statements.</li></ul>
+<h2>Free resources</h2>
+<ul>
+  <li><strong>${A("owl","Purdue OWL")}:</strong> the go-to free guide for essay structure, grammar and citation formats like APA, MLA and IEEE.</li>
+  <li><strong>${A("library","GT Library")}:</strong> librarians can help you find sources for research papers.</li>
+</ul>
+${links(["commlab","owl","library"])}`},
+
+  "research":{pillar:"Involve",title:"Getting into a research lab",
+    meta:"You don't need experience, a 4.0 or connections. You need curiosity and a short, specific email.",
+    side:sideLinks("Official links",["urop","vip","pathways"])+FIRSTGEN_SIDE,
+    body:`
+<p>Research at GT is open to every major, starting your first year. You can do it for course credit, for pay, or as a volunteer. Many students start for credit, then move to a paid position.</p>
+
+<h2>Finding a lab</h2>
+<ol class="steps">
+  <li><strong>Browse faculty pages</strong> in your department and related ones. Look for two or three labs whose projects make you curious.</li>
+  <li><strong>Read one recent project page or paper</strong> from each. You don't need to understand everything, just the main question.</li>
+  <li><strong>Talk to a UROP Undergraduate Research Ambassador.</strong> They're students who already do research and can help you find openings.</li>
+  <li><strong>Check posted openings</strong> on the UROP site and your department's announcements.</li>
+</ol>
+
+<h2>The email that works</h2>
+<p>Keep it under 150 words. Professors get many emails, and a short specific one gets read.</p>
+<div class="callout">
+<b>Subject:</b> Undergraduate interested in [topic] research<br><br>
+Dear Dr. [Last name],<br><br>
+I'm a [year] in [major] at Georgia Tech. I read about your lab's work on [specific project], and I'm especially interested in [one specific thing and why].<br><br>
+I've taken [relevant course] and have experience with [skill, even from class]. I'd love to contribute to your lab, for credit or as a volunteer to start. I can commit about [X] hours a week.<br><br>
+Would you have time to talk, or is there someone in your lab I could speak with? My resume is attached.<br><br>
+Thank you,<br>[Name]
+</div>
+<ul>
+  <li>No reply after a week? Send one polite follow-up. Professors are busy, not uninterested.</li>
+  <li>Email several labs, one at a time, each with a personalized message. Never send a copy-paste email.</li>
+  <li>A grad student or postdoc may reply instead. That's a great sign, since they often supervise undergrads.</li>
+</ul>
+
+<h2>Once you're in</h2>
+<ul>
+  <li>Ask what success looks like for you this semester, and who to go to with questions.</li>
+  <li>Keep a simple notebook of what you did each day. It helps you learn, and later it helps you write your resume and grad school essays.</li>
+  <li>Expect to spend the first weeks reading and learning techniques. That's normal.</li>
+</ul>
+
+<h2>Next steps</h2>
+<ul>
+  <li><strong>PURA</strong> (President's Undergraduate Research Awards) can pay your salary or your travel to present at a conference.</li>
+  <li><strong>The Research Option</strong> is a multi-semester project with a thesis that appears on your transcript. Ideal if you're thinking about grad school.</li>
+  <li><strong>Summer REUs</strong> are paid research programs at other universities. See the <a href="#/guide/calendar">deadline calendar</a>.</li>
+</ul>
+${links(["urop","pathways","vip"])}`},
+
+  "vip":{pillar:"Involve",title:"Vertically Integrated Projects (VIP)",
+    meta:"Team research for credit, with no GPA or resume required to apply.",
+    side:sideLinks("Official links",["vip","urop"]),
+    body:`
+<p>VIP teams mix undergrads at every level with grad students and faculty on long-term research projects. You earn course credit and can stay on the same team for multiple semesters, taking on more leadership as you go. If cold-emailing professors feels intimidating, this is a structured way in.</p>
+<h2>How to join</h2>
+<ol class="steps">
+  <li><strong>Browse the team list</strong> on the VIP site. Teams aren't limited to the majors they list, so apply anywhere that interests you.</li>
+  <li><strong>Apply to one team.</strong> No GPA or resume needed, just a short interest statement of about 350 characters on why you want to join.</li>
+  <li><strong>Apply early.</strong> You can apply the semester before, or as late as the Thursday of the first week of class. Popular teams fill up.</li>
+  <li><strong>Register in OSCAR</strong> with the section number you receive once you're accepted.</li>
+</ol>
+<h2>Good to know</h2>
+<ul>
+  <li>New members join at the start of fall or spring.</li>
+  <li>Plan on about 3 hours of work a week outside the team meeting for each credit.</li>
+  <li>Not accepted? Apply to another team, or try again next semester.</li>
+  <li>VIP credits can count toward some degree requirements, including some junior and senior design options. Check the VIP site and your advisor.</li>
+</ul>
+${links(["vip"])}`},
+
+  "orgs":{pillar:"Involve",title:"Choosing student organizations",
+    meta:"GT has more than 500 registered student organizations. A few you actually show up for beat ten you joined on paper.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<h2>A simple mix that works</h2>
+<ul>
+  <li><strong>One professional or academic org</strong> tied to your field. Engineering societies (SWE, NSBE, SHPE and major-specific chapters) often bring in recruiters, run resume workshops and help with career fairs.</li>
+  <li><strong>One community</strong> where you feel at home, such as a first-gen, cultural, faith or identity-based org.</li>
+  <li><strong>One just for fun</strong>, like a sport, music, a hobby or a game club.</li>
+</ul>
+<h2>How to start</h2>
+<ol class="steps">
+  <li><strong>Browse GT Engage</strong> and save five or six orgs.</li>
+  <li><strong>Go to the organizations fair</strong> at the start of the semester to meet many at once.</li>
+  <li><strong>Attend two meetings</strong> before deciding. The vibe matters more than the description.</li>
+  <li><strong>After a semester or two, run for a role.</strong> Treasurer, events chair or outreach chair all give you real leadership stories for interviews.</li>
+</ol>
+<h2>Good to know</h2>
+<ul>
+  <li>Ask about dues and required costs up front, like travel, uniforms or conference fees. If cost is a barrier, it's okay to ask an officer privately whether there's any flexibility, such as a payment plan.</li>
+  <li>Student-run project teams and hackathons count as experience on your resume, the same as a job.</li>
+</ul>
+${links(["engage","engagement"])}`},
+
+  "startups":{pillar:"Involve",title:"Startups and CREATE-X",
+    meta:"You don't need money or a business background to try building a startup at GT.",
+    side:sideLinks("Official links",["createx"]),
+    body:`
+<p>CREATE-X is open to every major, from first-years to PhD students. It has three levels, so you can start small:</p>
+<ul class="cal">
+  <li><span class="m">Learn</span><div><b>Startup Lab</b>, a course that teaches you how to test a startup idea with real customers before spending money on it.</div></li>
+  <li><span class="m">Make</span><div><b>Idea to Prototype (I2P)</b> and <b>CREATE-X Capstone</b>. Course credit, mentorship and a prototyping grant to build your idea. I2P runs in spring, summer and fall.</div></li>
+  <li><span class="m">Launch</span><div><b>Startup Launch</b>, a 12-week summer accelerator. Teams get $5,000 in seed funding plus free legal, accounting, mentoring and workspace support.</div></li>
+</ul>
+<h2>Other ways in</h2>
+<ul>
+  <li><strong>The InVenture Prize</strong>, GT's faculty-led invention competition for undergrads.</li>
+  <li><strong>Hackathons</strong> such as HackGT, where you build a project in a weekend. Great for meeting teammates.</li>
+</ul>
+<div class="callout">Worried about the risk? Starting with a class or I2P costs you nothing but time, and the experience reads well on any resume even if the startup doesn't continue.</div>
+${links(["createx"])}`},
+
+  "resume":{pillar:"Advise",title:"Resume and LinkedIn",
+    meta:"Your first impression before you ever meet a recruiter.",
+    side:sideLinks("Get it reviewed",["career","commlab"]),
+    body:`
+<h2>Resume structure</h2>
+<ol>
+  <li><strong>Header:</strong> name, GT email, phone, LinkedIn URL, and GitHub or portfolio if relevant.</li>
+  <li><strong>Education:</strong> Georgia Tech, major, expected graduation, GPA if it helps you, and relevant courses.</li>
+  <li><strong>Experience:</strong> jobs, internships, co-ops, research.</li>
+  <li><strong>Projects:</strong> class projects, personal projects, hackathons, VIP.</li>
+  <li><strong>Leadership and activities.</strong></li>
+  <li><strong>Skills:</strong> software, lab techniques, programming languages, spoken languages.</li>
+</ol>
+<p>Keep it to one page, most recent first in each section.</p>
+
+<h2>Writing bullet points</h2>
+<p>Use this formula: <mark>action verb + what you did + result</mark>. Add numbers whenever you can.</p>
+<div class="callout">
+<b>Before:</b> Responsible for helping customers at the store.<br>
+<b>After:</b> Resolved 40+ customer issues per shift, training 3 new employees on the checkout system.<br><br>
+<b>Before:</b> Worked on a class robot project.<br>
+<b>After:</b> Programmed obstacle detection for a 4-person autonomous robot in C++, cutting collision rate by half.
+</div>
+
+<h2>Experience you might be underselling</h2>
+<p>First-gen students often leave out experience that recruiters value. These all count:</p>
+<ul>
+  <li>Part-time jobs in retail, food service or delivery. They show reliability, customer skills and time management.</li>
+  <li>Translating or handling paperwork for your family. That's communication and responsibility.</li>
+  <li>Working while studying full time. That's a strength, and you can say so.</li>
+  <li>Class projects. Describe them like work projects.</li>
+</ul>
+
+<h2>LinkedIn</h2>
+<ul>
+  <li><strong>Photo:</strong> a clear, friendly photo of your face against a plain background. A phone camera is fine.</li>
+  <li><strong>Headline:</strong> more than "Student." For example: "Biomedical Engineering @ Georgia Tech | Medical devices and research."</li>
+  <li><strong>About:</strong> three or four sentences on what you're interested in and what you're looking for.</li>
+  <li><strong>Connect</strong> with people you meet at career fairs and events, with a short note reminding them where you met.</li>
+</ul>
+<p>The Career Center and the Naugle Writing and Communication Center both review resumes for free. More tips are in the <a href="#/guide/career-fair">career fair guide</a>.</p>
+${links(["career","commlab"])}`},
+
+  "coop":{pillar:"Advise",title:"Internships and co-ops",
+    meta:"Paid work experience while you're still a student. In engineering and computing, internships are usually paid well.",
+    side:sideLinks("Official links",["coop","career"])+FIRSTGEN_SIDE,
+    body:`
+<h2>Co-op vs. internship</h2>
+<ul class="cal">
+  <li><span class="m">Co-op</span><div>You alternate semesters of school with semesters of full-time work, usually with the same employer. Sophomore year is the best time to start. Complete three work terms with one employer and you get a co-op designation on your diploma. It may add time to your degree, but you graduate with about a year of experience.</div></li>
+  <li><span class="m">Internship</span><div>One work term, usually a summer. Open to all majors in any semester.</div></li>
+</ul>
+
+<h2>Finding one</h2>
+<ol class="steps">
+  <li><strong>Activate CareerBuzz</strong>, GT's job board, and set alerts for your major.</li>
+  <li><strong>Go to the career fair</strong> with your resume ready. Many companies recruit for the next summer in the fall.</li>
+  <li><strong>Apply on company websites</strong> too, especially for large companies.</li>
+  <li><strong>Ask people you know</strong>: older students in your clubs, your research lab, and recruiters you've met. Referrals help a lot.</li>
+</ol>
+
+<h2>Once you get an offer</h2>
+<ul>
+  <li><strong>Register it with the Career Center</strong> through CareerBuzz. It goes on your transcript and keeps you enrolled as a student while you work.</li>
+  <li><strong>Ask about housing and relocation.</strong> Many companies provide housing or a stipend for interns who move.</li>
+  <li><strong>For co-ops,</strong> plan your course sequence with your advisor, since some classes are only offered in certain semesters.</li>
+  <li><strong>Avoid unpaid internships</strong> in fields where paid ones are normal, especially if you need the income.</li>
+</ul>
+<p>For interview and offer advice, see <a href="#/guide/pre-industry">Pre-industry</a>.</p>
+${links(["coop","career"])}`},
+
+  "networking":{pillar:"Advise",title:"Networking without the awkwardness",
+    meta:"Networking isn't asking strangers for jobs. It's asking people about their work, and most people like talking about that.",
+    side:sideLinks("Official links",["career","firstgen"]),
+    body:`
+<p>Many students get internships through someone they know. If your family doesn't have professional connections in your field, you can build them, one conversation at a time.</p>
+
+<h2>Informational interviews</h2>
+<p>A 15 to 20 minute conversation where you ask someone about their job and career path. You're not asking for a job, which takes the pressure off for both of you.</p>
+<h3>Who to ask</h3>
+<ul>
+  <li>GT alumni in jobs you're curious about. Search LinkedIn for "Georgia Tech" plus a company or job title.</li>
+  <li>Speakers at club events and recruiters you met at the career fair.</li>
+  <li>Older students who had internships you want.</li>
+</ul>
+<h3>Message template</h3>
+<div class="callout">Hi [Name], I'm a [year] studying [major] at Georgia Tech. I'm interested in [field], and I saw that you work on [specific thing] at [company]. Would you be open to a 15-minute call sometime in the next few weeks? I'd love to hear how you got into this work. Thank you!</div>
+<h3>Questions to ask</h3>
+<ul>
+  <li>What does a typical week look like for you?</li>
+  <li>How did you get to this role?</li>
+  <li>What skills matter most in your work?</li>
+  <li>What do you wish you'd known as a student?</li>
+  <li>Is there anyone else you'd suggest I talk to?</li>
+</ul>
+
+<h2>After the conversation</h2>
+<ul>
+  <li>Send a thank-you message within a day, mentioning one thing you learned.</li>
+  <li>Connect on LinkedIn.</li>
+  <li>Follow up a few months later with an update, like "I took your advice and joined a lab." That's how a contact becomes a relationship.</li>
+  <li>If a role opens at their company later, it's then natural to ask whether they'd be willing to refer you.</li>
+</ul>
+${links(["career"])}`},
+
+  "mentors":{pillar:"Advise",title:"Finding mentors",
+    meta:"No single person can answer everything. Build a small circle of people you can go to for different things.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<h2>Who should be in your circle</h2>
+<ul class="cal">
+  <li><span class="m">Peer</span><div><b>An older student who's been there.</b> First-Gen Jackets peer mentors, older members of your clubs, or someone in your lab. Best for "how does this actually work here?"</div></li>
+  <li><span class="m">Faculty</span><div><b>A professor who knows your work.</b> Your research mentor or a professor whose office hours you go to. Best for academic and grad school advice, and future recommendation letters.</div></li>
+  <li><span class="m">Advisor</span><div><b>Your academic advisor.</b> Best for requirements, registration and degree planning.</div></li>
+  <li><span class="m">Professional</span><div><b>Someone working in your target field.</b> An alum, an internship supervisor, or a contact from an informational interview. Best for career decisions.</div></li>
+</ul>
+
+<h2>How mentorships actually start</h2>
+<ul>
+  <li>Skip "Will you be my mentor?" It's a big ask from a stranger.</li>
+  <li>Instead, ask one specific question. If the conversation goes well, ask another a few weeks later. Mentorships grow from repeated small conversations.</li>
+  <li>Share updates when you take their advice. People love seeing their help pay off.</li>
+  <li>Be the one who follows up. Mentors are busy, and it's fine for you to keep the relationship going.</li>
+</ul>
+<div class="callout">First-gen students sometimes feel like they're bothering people. You're not. Most faculty and professionals had mentors themselves and are glad to pay it forward.</div>
+<p>See also <a href="#/guide/office-hours">Office hours and emailing professors</a> and <a href="#/guide/networking">Networking</a>.</p>
+${links(["firstgen","advising"])}`},
+
+  "struggling":{pillar:"Advise",title:"When a semester goes wrong",
+    meta:"Bad semesters happen to a lot of students. What matters is acting early, while you still have options.",
+    side:`<div class="box"><h4>Before you withdraw</h4><p>Talk to financial aid first. Withdrawing can affect your aid and HOPE eligibility.</p></div>`+sideLinks("Official links",["coaching","dos","counseling"]),
+    body:`
+<h2>Act early</h2>
+<ol class="steps">
+  <li><strong>Talk to the professor or TA</strong> after the first bad quiz or exam, not at the end. Ask, "What should I do differently?"</li>
+  <li><strong>Book an Academic Coach</strong> and start tutoring right away.</li>
+  <li><strong>Check the drop and withdrawal deadlines</strong> on the academic calendar, and meet your advisor before they pass.</li>
+  <li><strong>If something outside school is the problem,</strong> such as family, health or money, contact the Dean of Students. They can help you figure out options and communicate with professors.</li>
+</ol>
+
+<h2>How academic standing works at GT</h2>
+<ul>
+  <li><strong>Good standing</strong> means a GPA of at least 2.0.</li>
+  <li><strong>Academic warning</strong> is the first step if your term or overall GPA dips below that. You're still in good standing, but there may be a limit on how many hours you can take.</li>
+  <li><strong>Probation</strong> comes next if your grades don't recover.</li>
+  <li><strong>Dismissal</strong> means time away from GT, usually at least a semester, before applying to return.</li>
+</ul>
+<p>The exact rules depend on your term and overall GPA, so read the Registrar's page or ask your advisor.</p>
+
+<h2>Things that catch people off guard</h2>
+<ul>
+  <li><strong>Financial aid has its own rules</strong> (Satisfactory Academic Progress), which can be stricter than academic standing.</li>
+  <li><strong>Withdrawn courses still count</strong> as attempted hours for HOPE and Zell Miller. See <a href="#/guide/hope">Keeping HOPE</a>.</li>
+  <li><strong>Struggling with focus, anxiety or a health condition?</strong> You may qualify for accommodations through Disability Services. See <a href="#/guide/disability">Disability accommodations</a>.</li>
+</ul>
+<div class="callout">One bad semester doesn't define you. Plenty of students recover, graduate, and go on to grad school or great jobs. The students who struggle most are the ones who wait.</div>
+${links(["standing","coaching","advising","dos","counseling","finaid"])}`},
+
+  "family":{pillar:"Advise",title:"Talking with your family about college",
+    meta:"Your family may love you deeply and still not know what an internship, a co-op or a PhD is. That's normal, and you can help them understand.",
+    side:FIRSTGEN_SIDE+sideLinks("Support",["counseling"]),
+    body:`
+<h2>Explaining your choices</h2>
+<ul>
+  <li><strong>Translate into outcomes.</strong> Instead of "I'm doing a co-op," try "I'm working full time at a company this semester. It's paid, and it often leads to a job after graduation."</li>
+  <li><strong>For research or grad school:</strong> "In my field, PhD students don't pay tuition and get a salary to do research." That surprises a lot of families.</li>
+  <li><strong>Share specifics.</strong> The company name, what you'll do, how much it pays. Concrete details are reassuring.</li>
+  <li><strong>Invite them in.</strong> Show them campus, your lab or your project. Families often feel more connected when they can picture your life.</li>
+</ul>
+
+<h2>When family needs and school compete</h2>
+<ul>
+  <li>Many first-gen students help their families with money, childcare, translation or paperwork. You're allowed to set limits on time during exam weeks.</li>
+  <li>Share your exam schedule and big deadlines ahead of time, so your family knows when you'll be less available.</li>
+  <li>Guilt about being away, or about your life changing, is common. Talking to other first-gen students or a counselor can really help.</li>
+  <li>If money stress at home is affecting your studies, talk to financial aid. Your aid can sometimes be reviewed when circumstances change.</li>
+</ul>
+<div class="callout">You don't have to choose between your family and your future. Many first-gen students find that, over time, their family becomes their proudest supporters.</div>
+${links(["firstgen","counseling","finaid"])}`},
+
+  "study":{pillar:"Learn",title:"How to study in college",
+    meta:"What worked in high school often stops working at GT. That's not a sign you don't belong. It means you need new strategies.",
+    side:sideLinks("Get help",["coaching","tutoring","plus"]),
+    body:`
+<h2>How much time to plan</h2>
+<p>A common guideline is <mark>2 to 3 hours of study per week for each credit hour</mark>. A 15-hour semester is a full-time job, so plan it like one.</p>
+
+<h2>Strategies that actually work</h2>
+<ul>
+  <li><strong>Test yourself instead of rereading.</strong> Close the notes and try to explain or solve from memory. It feels harder, and that's why it works.</li>
+  <li><strong>Do lots of practice problems,</strong> especially old exams if your professor posts them.</li>
+  <li><strong>Space it out.</strong> Several short sessions over a week beat one all-nighter.</li>
+  <li><strong>Study with others.</strong> Explaining a concept to a classmate is one of the fastest ways to learn it. PLUS sessions give you a ready-made group.</li>
+  <li><strong>Go to office hours</strong> before you're lost, not after.</li>
+</ul>
+
+<h2>Plan the whole semester in week one</h2>
+<ol class="steps">
+  <li>Put every exam, project and deadline from every syllabus into one calendar.</li>
+  <li>Find the weeks where several deadlines pile up, and start early on those.</li>
+  <li>Block regular study time every week, the same way you'd schedule a class or a job.</li>
+</ol>
+
+<h2>After every exam</h2>
+<p>Look at every question you missed and decide why: you didn't know the content, you misread the question, you ran out of time, or you made a careless mistake. Each needs a different fix.</p>
+${links(["coaching","tutoring","plus","dropin"])}`},
+
+  "office-hours":{pillar:"Learn",title:"Office hours and emailing professors",
+    meta:"Office hours are time professors and TAs set aside for students. Using them isn't a sign of weakness. It's what successful students do.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<h2>Office hours</h2>
+<ul>
+  <li><strong>They're for everyone,</strong> whether you're struggling, curious, or want to talk about the field.</li>
+  <li><strong>Come with something specific:</strong> a homework problem you attempted, a concept from lecture, or a question about the exam.</li>
+  <li><strong>Show your work.</strong> "I got this far, then got stuck here" leads to much better help.</li>
+  <li><strong>Go early in the semester,</strong> even once just to introduce yourself. Professors who know you can later offer research positions and recommendation letters.</li>
+</ul>
+<p>Not sure what to say? Try: "Hi, I'm [name] from your [course]. I wanted to ask about [topic]. I understand [part], but I'm stuck on [part]."</p>
+
+<h2>Emailing a professor</h2>
+<ul>
+  <li><strong>Use your GT email</strong> and put the course number in the subject line.</li>
+  <li><strong>Address them as "Dr." or "Professor" [Last name]</strong> unless they've told you otherwise.</li>
+  <li><strong>Keep it short</strong> and check the syllabus first, since many questions are already answered there.</li>
+  <li><strong>Allow two business days</strong> for a reply before following up.</li>
+</ul>
+<div class="callout">
+<b>Subject:</b> MATH 1552, question about Homework 4<br><br>
+Dear Professor [Last name],<br><br>
+I'm in your MATH 1552 section at 10 a.m. I'm working on problem 3 of Homework 4, and I'm unsure how to set up the integral. I tried [what you tried]. Could you point me in the right direction, or should I bring this to office hours on Thursday?<br><br>
+Thank you,<br>[Full name]
+</div>
+${links(["coaching"])}`},
+
+  "textbooks":{pillar:"Learn",title:"Textbooks for less",
+    meta:"Required books can cost hundreds of dollars a semester. Check these options before you buy anything.",
+    side:sideLinks("Official links",["library","openstax"]),
+    body:`
+<ol class="steps">
+  <li><strong>Wait for the first class.</strong> Some "required" books are barely used. Ask the professor whether an older edition is OK.</li>
+  <li><strong>Check library course reserves.</strong> The GT Library buys copies of many course textbooks and puts them on reserve, so you can use them free. Search the library catalog, or check your course's reading list in Canvas.</li>
+  <li><strong>Ask for an e-book.</strong> The library may be able to get an electronic version of a course book for you. Ask a librarian.</li>
+  <li><strong>Borrow equipment.</strong> The library also lends course equipment like electronics kits for some engineering classes.</li>
+  <li><strong>Use free textbooks.</strong> OpenStax has free, high-quality textbooks for intro calculus, chemistry, biology and physics, which make great extra references.</li>
+  <li><strong>Compare before buying.</strong> Older editions, used copies and rentals are often much cheaper. The campus bookstore price-matches some competitors.</li>
+</ol>
+<div class="callout">Watch out for access codes. Some courses require an online homework code you can't buy used. Check the syllabus before buying a bundle you don't need, and talk to financial aid if required course costs are a hardship.</div>
+${links(["library","openstax","finaid"])}`},
+
+  "disability":{pillar:"Learn",title:"Disability accommodations",
+    meta:"Accommodations aren't an unfair advantage. They give you equal access to your education.",
+    side:sideLinks("Official links",["ods","counseling"]),
+    body:`
+<p>Many students don't realize they're eligible. The Office of Disability Services supports students with learning disabilities, ADHD, mental health conditions such as anxiety or depression, chronic illnesses, mobility or sensory disabilities, and temporary injuries.</p>
+<h2>How to register</h2>
+<ol class="steps">
+  <li><strong>Apply through the AIM portal</strong> on the Disability Services website.</li>
+  <li><strong>Provide documentation</strong> from a provider that describes your condition.</li>
+  <li><strong>Meet with a coordinator</strong> to build an accommodation plan together.</li>
+</ol>
+<h2>What accommodations can look like</h2>
+<ul>
+  <li>Extra time on exams, or a quieter testing room at the Disability Services Testing Center</li>
+  <li>Note-taking support</li>
+  <li>Priority registration in some situations</li>
+  <li>Housing or classroom accessibility</li>
+</ul>
+<div class="callout">Register early, even before you think you'll need it. Accommodations aren't retroactive, so they can't change a grade on an exam you already took.</div>
+<p>Not sure if you have a condition but suspect something is getting in the way? CARE and the Counseling Center can help you take the first step.</p>
+${links(["ods","counseling"])}`},
+
+  "pre-health":{pillar:"Plan",title:"Pre-health",
+    meta:"Medicine, dentistry, PA and other health professions. Most applicants take at least one gap year, and that's completely normal.",
+    side:sideLinks("Official links",["prehealth","aamc","commlab"])+`<div class="box"><h4>Money first</h4><p>Apply for the AAMC Fee Assistance Program <b>before</b> you register for the MCAT. Benefits aren't retroactive.</p></div>`,
+    body:`
+<p>GT doesn't have a pre-med major. Choose any major and add the prerequisite courses. Medical schools want strong grades, an MCAT score, clinical experience, service and research, and a clear story of why you want to do this work.</p>
+
+<h2>Timeline if you apply the summer after junior year</h2>
+<ul class="cal">
+  <li><span class="m">Years 1–2</span><div><b>Build the foundation.</b> Prerequisites (biology, general and organic chemistry, physics, biochemistry, plus math and writing). Start volunteering and shadowing, and join a lab if research interests you. Meet a pre-health advisor in your first year.</div></li>
+  <li><span class="m">Summer after year 2</span><div><b>Get clinical hours.</b> Scribing, EMT, CNA, hospital volunteering, or a research program.</div></li>
+  <li><span class="m">Oct, year 3</span><div><b>MCAT registration opens</b> for the next testing year. Apply for AAMC Fee Assistance first.</div></li>
+  <li><span class="m">Jan–Apr, year 3</span><div><b>Take the MCAT</b> after finishing biochemistry, ideally by spring. Line up recommendation letters and draft your personal statement.</div></li>
+  <li><span class="m">Early May</span><div><b>AMCAS opens.</b> Submit in late May or June. Admissions are rolling, so earlier is better.</div></li>
+  <li><span class="m">Summer</span><div><b>Secondary applications</b> arrive from individual schools. Turn each around within about two weeks.</div></li>
+  <li><span class="m">Fall–spring</span><div><b>Interviews and offers.</b></div></li>
+</ul>
+<p>Want a gap year? Shift everything one year later. Many applicants use that year to work in healthcare or research, which often makes for a stronger application.</p>
+
+<h2>The MCAT</h2>
+<ul>
+  <li><strong>Format:</strong> about 7.5 hours, four sections: chemistry and physics, critical analysis and reasoning (CARS), biology and biochemistry, and psychology and sociology.</li>
+  <li><strong>Score:</strong> 472 to 528.</li>
+  <li><strong>Plan:</strong> most people study for 3 to 6 months. Take a full-length practice test early to see where you stand.</li>
+  <li><strong>Cost help:</strong> the AAMC Fee Assistance Program reduces the MCAT fee, gives you the official prep materials for free, and waives AMCAS application fees for one cycle. See <a href="#/guide/test-prep">Test prep on a budget</a>.</li>
+</ul>
+
+<h2>Other health paths</h2>
+<ul>
+  <li><strong>DO (osteopathic medicine):</strong> also takes the MCAT, but applies through AACOMAS.</li>
+  <li><strong>Dentistry:</strong> takes the DAT and applies through ADEA AADSAS.</li>
+  <li><strong>Physician assistant:</strong> applies through CASPA. Many programs require a lot of hands-on patient care hours.</li>
+</ul>
+
+<h2>Summer opportunities</h2>
+<ul>
+  <li><strong>Research or an REU</strong> (Research Experience for Undergraduates)</li>
+  <li><strong>Shadowing</strong> physicians or other health professionals</li>
+  <li><strong>A medical job certification</strong> such as EMT or CNA</li>
+  <li><strong>An internship</strong></li>
+  <li><strong>Volunteering</strong></li>
+</ul>
+<h2>Free resources</h2>
+<ul>
+  <li><strong>${A("shpep","SHPEP")}:</strong> a free six-week summer program for first- and second-year students. Applications usually open in November and close in early February.</li>
+  <li><strong>${A("aamc","AAMC Fee Assistance Program")}:</strong> besides the MCAT discount and free official prep, it includes access to the AAMC's medical school admissions database (MSAR) for comparing schools.</li>
+  <li><strong>${A("khanmcat","Khan Academy MCAT")}:</strong> free content review videos and practice questions.</li>
+  <li><strong>${A("prehealth","GT Pre-Health Advising")}:</strong> peer advisors, a Canvas site with self-help resources, workshops, and an alumni mentoring program.</li>
+  <li><strong>Borrowed prep books:</strong> see <a href="#/guide/test-prep">Test prep on a budget</a>.</li>
+</ul>
+<p>For your personal statement, see <a href="#/guide/statements">Writing your SOP and personal statement</a>.</p>
+${links(["prehealth","shpep","aamc","khanmcat"])}`},
+
+  "pre-law":{pillar:"Plan",title:"Pre-law",
+    meta:"Law schools admit students from every major, including engineering. A technical degree can lead to patent or technology law.",
+    side:sideLinks("Official links",["prelaw","lsac","lawhub","commlab"])+`<div class="box"><h4>Money first</h4><p>The LSAC fee waiver covers the LSAT, a year of full LawHub practice, and the application service. Apply months before you register.</p></div>`,
+    body:`
+<h2>Timeline if you go straight from undergrad</h2>
+<ul class="cal">
+  <li><span class="m">Years 1–2</span><div><b>Keep your GPA strong.</b> It matters a lot in law admissions. Take classes with heavy reading and writing, and meet the pre-law advisor.</div></li>
+  <li><span class="m">Year 3</span><div><b>Start LSAT prep.</b> Apply for the LSAC fee waiver, then take a free diagnostic test on LawHub. Build relationships with two professors who could write letters.</div></li>
+  <li><span class="m">Summer after year 3</span><div><b>Take the LSAT</b> so you have time to retake in the fall if needed. Draft your personal statement and resume.</div></li>
+  <li><span class="m">Sept–Dec, year 4</span><div><b>Apply.</b> Admissions are rolling, so applying by November helps. Applications go through LSAC's Credential Assembly Service.</div></li>
+  <li><span class="m">Winter–spring</span><div><b>Decisions and scholarship offers.</b> You can often negotiate scholarships by sharing a better offer from a comparable school.</div></li>
+</ul>
+<p>Many law students work for a year or more first. Real work experience often helps your application.</p>
+
+<h2>The LSAT</h2>
+<ul>
+  <li><strong>Format:</strong> taken online. Two logical reasoning sections and one reading comprehension section are scored, plus one unscored experimental section. Logic games were removed in August 2024.</li>
+  <li><strong>Writing:</strong> a separate 50-minute argumentative writing task. It isn't scored, but every law school you apply to sees it.</li>
+  <li><strong>Score:</strong> 120 to 180.</li>
+  <li><strong>GRE option:</strong> many law schools also accept the GRE. Check each school.</li>
+</ul>
+
+<h2>What you'll submit</h2>
+<ul>
+  <li>LSAT (or GRE) score</li>
+  <li>Transcripts from every college you attended</li>
+  <li>A personal statement, usually about two pages</li>
+  <li>Two or more letters of recommendation, ideally from professors</li>
+  <li>A resume, and optional diversity or addenda statements</li>
+</ul>
+
+<h2>Free resources</h2>
+<ul>
+  <li><strong>${A("lsac","LSAC fee waiver")}:</strong> apply months before you register. It covers the LSAT, a year of full LawHub practice, and the Credential Assembly Service.</li>
+  <li><strong>${A("lawhub","LawHub")}:</strong> free official LSAT practice tests and writing prompts for everyone.</li>
+  <li><strong>${A("lexpipe","LSAC PLUS programs")}:</strong> free summer programs for students one or two years from applying. Completing one comes with a stipend and an LSAC fee waiver. Mainly for students from groups underrepresented in law. Find them in the AccessLex directory.</li>
+  <li><strong>${A("accesslex","AccessLex")}:</strong> free one-on-one financial advising for paying for law school, plus a scholarship database.</li>
+  <li><strong>Borrowed prep books:</strong> see <a href="#/guide/test-prep">Test prep on a budget</a>. Skip any logic games chapters in older books.</li>
+</ul>
+<p>For your personal statement, see <a href="#/guide/statements">Writing your SOP and personal statement</a>.</p>
+${links(["prelaw","lsac","lawhub","lexpipe","accesslex"])}`},
+
+  "pre-grad":{pillar:"Plan",title:"Pre-grad school",
+    meta:"Master's and PhD programs. In science and engineering, most PhD students don't pay tuition and are paid a stipend to do research.",
+    side:sideLinks("Official links",["pgpp","urop","commlab"])+`<div class="box"><h4>Don't let fees stop you</h4><p>Many programs waive application fees for students with financial need. Look on the admissions page or email the program coordinator and ask.</p></div>`,
+    body:`
+<div class="callout"><b>A funded PhD is a job.</b> In most STEM PhD programs, tuition is covered and you get a salary for doing research. A master's is usually paid for by the student, though some come with assistantships.</div>
+
+<h2>Timeline for starting right after graduation</h2>
+<ul class="cal">
+  <li><span class="m">Years 1–3</span><div><b>Do research.</b> This is the most important part of a PhD application. Aim for at least a year in one lab, and consider an REU in the summer.</div></li>
+  <li><span class="m">Spring, year 3</span><div><b>Make a list of programs and professors</b> whose work excites you. Read their recent papers. Check which programs still require the GRE.</div></li>
+  <li><span class="m">Summer after year 3</span><div><b>Take the GRE if needed</b> and draft your statement of purpose.</div></li>
+  <li><span class="m">Sept–Oct, year 4</span><div><b>Ask for three recommendation letters,</b> at least a month ahead. Email professors you'd like to work with. Apply for fellowships like the NSF GRFP if you're eligible.</div></li>
+  <li><span class="m">Dec 1–15</span><div><b>Most PhD applications are due.</b> Some are due earlier, so check each one.</div></li>
+  <li><span class="m">Jan–Mar</span><div><b>Interviews and visit days.</b> Programs often pay for your travel.</div></li>
+  <li><span class="m">April 15</span><div><b>Usual decision deadline</b> for funded offers in many programs.</div></li>
+</ul>
+
+<h2>The GRE</h2>
+<ul>
+  <li><strong>Format:</strong> under 2 hours. Verbal reasoning, quantitative reasoning and one essay.</li>
+  <li><strong>Score:</strong> 130 to 170 for each of verbal and quant.</li>
+  <li><strong>Is it required?</strong> Many STEM PhD programs have made it optional or dropped it. Check before you pay to take it.</li>
+  <li><strong>Cost help:</strong> the GRE Fee Reduction Program discounts the test fee and includes official practice tests.</li>
+</ul>
+
+<h2>What you'll submit</h2>
+<ul>
+  <li>A statement of purpose, and sometimes a personal statement</li>
+  <li>Three recommendation letters</li>
+  <li>Transcripts, a CV, and GRE scores if required</li>
+</ul>
+
+<h2>Recommendation letters: who to ask</h2>
+<p>For a PhD, letters are often the most important part of your application. Committees want to know one thing: <mark>can this person do research?</mark> The best letters come from people who watched you do it.</p>
+<h3>Strongest to weakest</h3>
+<ol class="steps">
+  <li><strong>Your research mentor (the PI of your lab).</strong> This should be at least one, ideally two, of your three letters. If a grad student or postdoc supervised you day to day, ask the PI to write the letter with their input. Committees give more weight to a faculty signature.</li>
+  <li><strong>A summer research mentor,</strong> such as your REU or internship research supervisor.</li>
+  <li><strong>A professor from an upper-level class</strong> in your field where you did well and they actually know you, for example through office hours, a class project or being their TA.</li>
+  <li><strong>An industry supervisor</strong>, only if the work was research or technical and relevant to the program.</li>
+</ol>
+<h3>Usually avoid</h3>
+<ul>
+  <li>A famous professor who barely knows you. A detailed letter from a less-known professor is stronger.</li>
+  <li>A letter only from a TA or grad student, unless the program specifically allows it.</li>
+  <li>Family friends, coaches, or employers from unrelated jobs.</li>
+</ul>
+<h3>How to ask</h3>
+<ol class="steps">
+  <li><strong>Ask 6 to 8 weeks ahead</strong>, in person or on a video call if you can.</li>
+  <li><strong>Ask this way:</strong> "Do you feel you know my work well enough to write a strong letter for PhD programs?" It gives them an easy way to say no, which is better than a weak letter.</li>
+  <li><strong>Send one organized email</strong> with your CV, your SOP draft, a list of programs and deadlines, how each letter is submitted, and three or four specific things you did in their lab or class that you hope they'll mention.</li>
+  <li><strong>Waive your right to see the letters</strong> when the application asks. Committees trust confidential letters more.</li>
+  <li><strong>Remind them</strong> about a week before each deadline, thank them afterward, and tell them where you got in. Professors genuinely want to know.</li>
+</ol>
+<div class="callout">Haven't done research yet? It's not too late. Start now with UROP or a summer REU. Even one semester in a lab gives a professor something real to write about.</div>
+
+<h2>Statement of purpose and personal statement</h2>
+<p>The SOP is about your research: what you've done, what you want to study, and why this program. Name two or three faculty whose work fits yours and explain why. If a program also asks for a personal statement, use it for your background, values and how you'll contribute to the community. That's where being first-gen can fit naturally.</p>
+<p>The full how-to, and annotated real examples from other schools, are in <a href="#/guide/statements">Writing your SOP and personal statement</a>.</p>
+
+<h2>Free resources</h2>
+<ul>
+  <li><strong>${A("pathways","Pathways to Science")}:</strong> search for paid summer research programs and REUs.</li>
+  <li><strong>${A("brownasp","Free application reviews")}:</strong> many PhD programs run volunteer programs where current PhD students review your SOP and CV for free, often for first-gen and underrepresented applicants. Deadlines are usually in October or November.</li>
+  <li><strong>Application fee waivers:</strong> most programs have them. Check each admissions page or email the program coordinator.</li>
+  <li><strong>${A("grefee","GRE help")}:</strong> the GRE Fee Reduction Program and two free POWERPREP practice tests.</li>
+  <li><strong>${A("commlab","Feedback at GT")}:</strong> the Naugle Writing and Communication Center and Pre-Graduate advising.</li>
+</ul>
+${links(["pgpp","pathways","brownasp","commlab","grefee","urop"])}`},
+
+  "pre-industry":{pillar:"Plan",title:"Pre-industry",
+    meta:"Heading straight into a job after graduation.",
+    side:sideLinks("Official links",["career","coop","commlab"]),
+    body:`
+<h2>Timeline</h2>
+<ul class="cal">
+  <li><span class="m">Year 1</span><div><b>Explore.</b> Join a project-based club, build something you can show, and go to the career fair just to practice talking to recruiters.</div></li>
+  <li><span class="m">Year 2</span><div><b>Get your first experience.</b> Start a co-op, or apply for internships, research or campus jobs related to your major.</div></li>
+  <li><span class="m">Fall, year 3</span><div><b>Apply for summer internships.</b> Many large companies recruit in August through October, so have your resume ready before the semester starts.</div></li>
+  <li><span class="m">Summer, year 3</span><div><b>Do the internship.</b> A good internship often ends with a full-time offer.</div></li>
+  <li><span class="m">Fall, year 4</span><div><b>Full-time recruiting.</b> Apply early in the fall. Smaller companies and startups hire later into the spring.</div></li>
+</ul>
+
+<h2>Interviews</h2>
+<ul>
+  <li><strong>Behavioral questions:</strong> prepare 5 or 6 stories from projects, jobs and leadership roles. For each, explain the situation, what you did and the result.</li>
+  <li><strong>Technical interviews:</strong> for software, practice coding problems out loud. For other engineering roles, review core concepts from your major and be ready to walk through your projects.</li>
+  <li><strong>Mock interviews:</strong> the Career Center and the Communication Center both offer free practice.</li>
+</ul>
+
+<h2>When you get an offer</h2>
+<ul>
+  <li>Get it in writing, and ask how long you have to decide. If you need more time, it's fine to ask for an extension.</li>
+  <li>Many first-gen students never negotiate, but asking politely is normal and expected. A Career Center advisor can help you prepare.</li>
+  <li>Compare the whole package: salary, signing bonus, relocation, cost of living and benefits.</li>
+</ul>
+<h2>Free resources</h2>
+<ul>
+  <li><strong>${A("career","GT Career Center")}:</strong> resume reviews, mock interviews and CareerBuzz job listings.</li>
+  <li><strong>${A("commlab","Naugle Writing and Communication Center")}:</strong> interview practice and cover letter feedback.</li>
+  <li><strong>${A("star","Campus Closet")}:</strong> free loaner interview clothes through STAR.</li>
+  <li><strong>${A("techih","Tech Interview Handbook")}:</strong> a free guide to coding interviews, behavioral questions and negotiation.</li>
+  <li><strong>${A("levels","Levels.fyi")}:</strong> real salary data, so you know whether an offer is fair before you negotiate.</li>
+</ul>
+${links(["career","commlab","star","techih","levels"])}
+<p>See also the <a href="#/guide/career-fair">career fair guide</a> and <a href="#/guide/resume">resume tips</a>.</p>`},
+
+  "statements":{pillar:"Plan",title:"Writing your SOP and personal statement",
+    meta:"Two different essays that people mix up. Here's what each one is for, and how to write it without sounding like everyone else.",
+    side:sideLinks("Get feedback",["commlab","pgpp","prehealth","prelaw"])+FIRSTGEN_SIDE,
+    body:`
+<h2>Which one is which</h2>
+<ul>
+  <li><strong>Statement of purpose (SOP):</strong> used for PhD and master's programs. It's a professional document about your research: what you've done, what you want to study, and why this program fits.</li>
+  <li><strong>Personal statement (PS):</strong> used for medical, law and some graduate programs. It's about you: the experiences that shaped you and why you're pursuing this path.</li>
+</ul>
+<p>Some PhD programs ask for both. When they do, keep the SOP about research and use the PS for your background and values.</p>
+
+<h2>Writing a statement of purpose</h2>
+<ol class="steps">
+  <li><strong>Open with the question that drives you.</strong> One or two sentences about the problem you want to work on. Skip childhood stories.</li>
+  <li><strong>Describe your research in detail.</strong> For each project: the question, what you did yourself, what you found, and what you learned, including when things didn't work.</li>
+  <li><strong>Connect it to what's next.</strong> What do you want to study in grad school, and how does your experience prepare you?</li>
+  <li><strong>Explain why this program.</strong> Name two or three faculty whose work fits yours and say specifically why. Change this section for every school.</li>
+  <li><strong>Close with your goals</strong> after the degree.</li>
+</ol>
+<p>Usually 1 to 2 pages. Write like a scientist: specific, clear and confident.</p>
+
+<h2>Writing a personal statement</h2>
+<ol class="steps">
+  <li><strong>Pick one or two real moments,</strong> not your whole life story.</li>
+  <li><strong>Show what happened and what you did.</strong> Let the reader see you in action.</li>
+  <li><strong>Reflect.</strong> What did it change in how you think? This is the part admissions readers care about most.</li>
+  <li><strong>Connect it to the path.</strong> Why medicine, or law, or this field? Ground it in experience, not general statements.</li>
+</ol>
+<p>Medical school's AMCAS personal comments essay allows up to 5,300 characters, including spaces. Law school statements are usually about two pages. Always check each school's instructions.</p>
+
+<h2>Writing about being first-gen</h2>
+<ul>
+  <li>It's a strength, not a hardship story you owe anyone. Focus on what you built: figuring out systems alone, translating for family, working while studying, finding mentors.</li>
+  <li>Keep the focus on you and what you did, not only on what was hard.</li>
+  <li>You decide how much to share. Leaving it out is also fine.</li>
+</ul>
+
+<h2>Mistakes that are easy to fix</h2>
+<ul>
+  <li>Repeating your resume instead of explaining what it meant</li>
+  <li>Opening with a quote or a dictionary definition</li>
+  <li>Generic praise of a school that could apply to any school</li>
+  <li>Saying "I'm passionate" instead of showing it</li>
+  <li>Only one draft. Strong statements usually go through five or more.</li>
+</ul>
+
+<h2>Getting feedback</h2>
+<p>Start two to three months before the deadline. Bring drafts to the Naugle Writing and Communication Center, a pre-professional advisor, and a professor in your field. Ask readers specific questions, such as "What do you think I want to research?", to test whether your message comes across.</p>
+
+<h2>Real examples to learn from</h2>
+<p>Reading statements that worked is one of the fastest ways to learn. These are free:</p>
+${links(["isusop","commkit","cssop","grfpex","brownasp"])}
+<div class="callout"><b>Learn the structure, never copy the words.</b> Admissions committees read thousands of statements, and borrowed phrasing stands out. Read several examples, notice what each paragraph does, then write your own from your own experiences.</div>
+
+<h2>Asking for recommendation letters</h2>
+<p>Who to ask and how is covered in detail in <a href="#/guide/pre-grad">Pre-grad school</a>. The short version:</p>
+<ul>
+  <li>Ask people who have seen your work up close, at least 6 weeks ahead.</li>
+  <li>Send one email with your resume, draft statement, the list of schools and deadlines, and a few points you hope they'll mention.</li>
+  <li>Send a polite reminder a week before each deadline, and a thank-you note afterward.</li>
+</ul>
+${links(["commlab","pgpp"])}`},
+
+  "test-prep":{pillar:"Plan",title:"Test prep on a budget",
+    meta:"Prep courses can cost more than a month's rent. You can score well using free and borrowed materials.",
+    side:sideLinks("Official links",["library","aamc","lawhub","grefee"]),
+    body:`
+<h2>Step 1: Apply for fee help before you register</h2>
+<ul>
+  <li><strong>MCAT:</strong> the AAMC Fee Assistance Program lowers the registration fee, gives you the official MCAT prep materials free, and waives AMCAS application fees for one cycle. You must be approved before registering, and the free prep can only be used once in your life.</li>
+  <li><strong>LSAT:</strong> the LSAC fee waiver covers the LSAT, a free year of LawHub Advantage with every official practice test, and the Credential Assembly Service.</li>
+  <li><strong>GRE:</strong> the GRE Fee Reduction Program discounts the test fee and includes official practice tests.</li>
+  <li><strong>Prep companies:</strong> several big test prep companies discount their courses for students who already have one of these waivers. Ask them.</li>
+</ul>
+
+<h2>Step 2: Borrow books before you buy them</h2>
+<ol class="steps">
+  <li><strong>Search the GT Library catalog</strong> for "MCAT", "GRE", "LSAT" or "DAT". Prep books and e-books are often available. If you can't find one, ask a librarian.</li>
+  <li><strong>Request from another library.</strong> If GT doesn't have a book, ask the library about interlibrary loan or borrowing from other University System of Georgia libraries.</li>
+  <li><strong>Check your public library.</strong> A free public library card often includes online test prep databases with practice tests.</li>
+  <li><strong>Ask older students.</strong> Seniors who just finished their applications often give away or sell their prep books. Ask in pre-health and pre-law clubs, or in the first-gen community.</li>
+</ol>
+<div class="callout">Older editions are mostly fine for content review, but check what changed. The LSAT dropped logic games in August 2024, so skip those chapters. The GRE was shortened in September 2023, so older full-length practice tests are longer than the real exam.</div>
+
+<h2>Step 3: Use the free official materials</h2>
+<ul>
+  <li><strong>MCAT:</strong> Khan Academy's MCAT lessons, plus free sample questions from the AAMC.</li>
+  <li><strong>LSAT:</strong> free official practice tests and writing prompts on LawHub.</li>
+  <li><strong>GRE:</strong> two free POWERPREP practice tests from ETS.</li>
+</ul>
+<p>Official practice tests are the most valuable thing you'll use. Save at least a few for the last month, and take them timed, in one sitting.</p>
+
+<h2>A simple study plan</h2>
+<ol>
+  <li>Take one full practice test cold to find your starting point.</li>
+  <li>Spend most of your time on your two weakest areas.</li>
+  <li>Review every wrong answer and write down why you missed it.</li>
+  <li>Take a full practice test every week or two near the end.</li>
+</ol>
+${links(["library","aamc","khanmcat","lawhub","lsac","gre","grefee"])}`},
+
+  "fafsa":{pillar:"Plan",title:"FAFSA, step by step",
+    meta:"The one form that unlocks most of your aid. Do it every year, as early as you can.",
+    side:`<div class="box"><h4>Key dates</h4><ul><li><b>By Oct 1:</b> FAFSA and GT App open</li><li><b>Jan 31:</b> GT priority deadline</li></ul></div><div class="box"><h4>GT school code</h4><p style="font-size:22px;font-family:var(--display);font-weight:800;color:var(--ink)">001569</p></div>`+FIRSTGEN_SIDE,
+    body:`
+<h2>What it is and why it matters</h2>
+<p>The FAFSA (Free Application for Federal Student Aid) is how the government and GT decide what aid you get: Pell Grants you don't pay back, Federal Work-Study jobs, federal loans, and GT's own need-based money. Even if you think your family earns too much, file it. Many awards require it.</p>
+<div class="callout"><b>GT's priority deadline is January 31.</b> It covers both the FAFSA and the Georgia Tech Application for Scholarships and Financial Aid (GT App). If you file after it, you're only considered for entitlements like federal aid and HOPE / Zell Miller, and you can miss out on GT's own grants.</div>
+
+<h2>Before you start</h2>
+<ul>
+  <li><strong>A StudentAid.gov account</strong> for you, and a separate one for each parent or contributor the form asks for. Parents can create one even without a Social Security number.</li>
+  <li><strong>Tax info from two years back.</strong> The 2027–28 FAFSA uses 2025 taxes. With everyone's consent, it's pulled straight from the IRS.</li>
+  <li><strong>About an hour</strong>, and a parent available by phone or text if they're not next to you.</li>
+</ul>
+
+<h2>Filling it out</h2>
+<ol class="steps">
+  <li><strong>Start the form at StudentAid.gov.</strong> Pick the school year you'll be enrolled in. The form for July to June of next year opens by October 1.</li>
+  <li><strong>Invite your contributors.</strong> Usually your parents. They each log in with their own account and fill in their own section.</li>
+  <li><strong>Give consent to share tax info.</strong> Everyone listed must consent, or you won't be eligible for federal aid.</li>
+  <li><strong>Add Georgia Tech, code 001569.</strong></li>
+  <li><strong>Sign and submit.</strong> Save the confirmation email.</li>
+  <li><strong>Fill out the GT App in OSCAR.</strong> It takes a few minutes and unlocks GT scholarship forms. This is separate from the FAFSA.</li>
+  <li><strong>Watch your GT email and OSCAR.</strong> GT may ask for extra documents to verify your info. Answer fast, because aid waits until you do.</li>
+</ol>
+
+<h2>First-gen situations that come up</h2>
+<ul>
+  <li><strong>Your parents are nervous about sharing financial info.</strong> Explain that it's used only to calculate aid, and that the IRS transfer means fewer numbers to type in by hand.</li>
+  <li><strong>You can't get your parents' info at all</strong> because of estrangement, abandonment or a similar situation. Talk to the financial aid office. They can review special circumstances.</li>
+  <li><strong>Your family's income dropped</strong> since the tax year on the form. Ask financial aid about a professional judgment review.</li>
+  <li><strong>Georgia residents who only want HOPE or Zell Miller</strong> can file the shorter GSFAPPS instead of the FAFSA, but then you won't be considered for federal grants or work-study. Most students should just do the FAFSA.</li>
+</ul>
+${links(["studentaid","finaid","gafutures"])}`},
+
+  "calendar":{pillar:"Plan",title:"Scholarship and deadline calendar",
+    meta:"A year of money and opportunity deadlines, with why each one is worth it. Dates marked 'around' move every year, so confirm on the linked site.",
+    side:sideLinks("Who to ask",["finaid","pgpp","oie"])+FIRSTGEN_SIDE,
+    body:`
+<ul class="cal">
+  <li><span class="m">Oct 1<small>every year</small></span><div><b>FAFSA and GT App open</b><br>Filing early means you're first in line for limited funds. <a href="#/guide/fafsa">How to file</a></div></li>
+  <li><span class="m">Early Oct<small>check exact date</small></span><div><b>Gilman Scholarship, fall deadline</b><br>Up to $5,000 to study or intern abroad if you get a Pell Grant. Funds programs starting the following winter through fall. <a href="#/guide/abroad">More</a></div></li>
+  <li><span class="m">Aug–Oct<small>around</small></span><div><b>Internship recruiting peaks</b><br>Many large companies fill summer internships in the fall. The fall career fair is the place to start. <a href="#/guide/career-fair">Career fair guide</a></div></li>
+  <li><span class="m">Nov–Dec<small>around, campus deadline</small></span><div><b>Goldwater and Truman scholarships</b><br>Goldwater funds sophomores and juniors heading into research careers. Truman funds juniors heading into public service. Both look great on grad school applications. GT sets its own earlier campus deadline, so contact Pre-Graduate advising in the fall.</div></li>
+  <li><span class="m">October<small>every year</small></span><div><b>MCAT registration opens</b> for the next testing year. Get AAMC Fee Assistance approved first. <a href="#/guide/pre-health">Pre-health</a></div></li>
+  <li><span class="m">Dec 1–15<small>most programs</small></span><div><b>PhD applications due</b> for programs starting the next fall. Most STEM PhDs are fully funded. <a href="#/guide/pre-grad">Pre-grad</a></div></li>
+  <li><span class="m">Jan 31<small>every year</small></span><div><b>GT financial aid priority deadline</b><br>The FAFSA and GT App must be in by now to be considered for GT's need-based aid and Tech Promise.</div></li>
+  <li><span class="m">Jan–Feb<small>around</small></span><div><b>Summer research (REU) applications</b><br>NSF-funded Research Experiences for Undergraduates are paid summer research programs at universities across the country, often with housing and travel covered. Most applications close in winter.</div></li>
+  <li><span class="m">Early Mar<small>check exact date</small></span><div><b>Gilman Scholarship, spring deadline</b><br>Second chance each year for Pell Grant recipients. Funds programs starting that May through the next April.</div></li>
+  <li><span class="m">March<small>around</small></span><div><b>Off-Campus Housing Fair</b><br>Meet property managers before the best leases for next year are gone. <a href="#/guide/housing">Housing</a></div></li>
+  <li><span class="m">Early May<small>every year</small></span><div><b>AMCAS opens</b> for medical school. Submit early, since admissions are rolling.</div></li>
+  <li><span class="m">End of spring<small>every year</small></span><div><b>HOPE and Zell Miller GPA check</b><br>Your HOPE GPA is reviewed at the end of every spring. <a href="#/guide/hope">How to keep it</a></div></li>
+  <li><span class="m">Late summer<small>around, campus deadline</small></span><div><b>Fulbright and other senior-year fellowships</b><br>Funded research, study or English teaching abroad after graduation. Campus deadlines land early in senior fall, so start the summer before.</div></li>
+</ul>
+${links(["finaid","pgpp","gilman"])}`},
+
+  "hope":{pillar:"Plan",title:"Keeping HOPE and Zell Miller",
+    meta:"For Georgia residents. Losing it is easy if nobody tells you how the checkpoints work.",
+    side:sideLinks("Official links",["gafutures","finaid"]),
+    body:`
+<h2>The rules in plain words</h2>
+<ul>
+  <li><strong>HOPE:</strong> keep a cumulative HOPE GPA of at least 3.0.</li>
+  <li><strong>Zell Miller:</strong> keep at least 3.3.</li>
+  <li>The state checks your GPA at the <mark>end of every spring</mark> and when you hit <mark>30, 60 and 90 attempted hours</mark>.</li>
+  <li>If you drop below at a checkpoint, you lose it. You can regain it <strong>only once</strong>, at a later checkpoint.</li>
+  <li>Eligibility ends after 127 attempted or paid semester hours.</li>
+</ul>
+<h2>What catches people off guard</h2>
+<ul>
+  <li><strong>Your HOPE GPA isn't your GT GPA.</strong> It counts every college course you attempted after high school, at any school. Check it on GAfutures.</li>
+  <li><strong>Withdrawn courses still count</strong> toward attempted hours, even though they don't affect the GPA. Withdrawing pushes you toward the next checkpoint and the hour cap.</li>
+  <li><strong>You still have to file the GT App every year</strong>, even if HOPE is all you get.</li>
+</ul>
+<div class="callout">Close to the line? Talk to an academic coach and your advisor before the semester ends, not after grades post.</div>
+${links(["gafutures","finaid","coaching"])}`},
+
+  "help-now":{pillar:"Plan",title:"Help with food, money and wellbeing",
+    meta:"Asking for help is something successful students do all the time. These services exist because students use them.",
+    side:`<div class="box"><h4>In crisis right now?</h4><p>Call or text <b>988</b>, the Suicide and Crisis Lifeline, any time. For an emergency on campus, call GT Police or 911.</p></div>`,
+    body:`
+<h2>Food, clothes, housing and emergency cash</h2>
+<p>STAR (Students' Temporary Assistance and Resources) brings GT's support programs together:</p>
+<ul>
+  <li><strong>Klemis Kitchen</strong>, GT's food pantry, for students whose money is too tight to eat well.</li>
+  <li><strong>${A("star","Campus Closet")}</strong>, which lends professional clothes for career fairs and interviews.</li>
+  <li><strong>Crisis housing</strong> if you're suddenly displaced.</li>
+  <li><strong>Dean Griffin Hip Pocket Loan</strong>, an interest-free emergency loan for academic or personal needs.</li>
+</ul>
+<h2>Mental health</h2>
+<p>Counseling at GT is free. New students start with an assessment at CARE, which connects you to counseling, psychiatry or other support on or off campus. You don't need a diagnosis or a crisis to go.</p>
+<h2>When life is getting in the way of school</h2>
+<p>A family emergency, illness or money crisis can make classes impossible. The Dean of Students office can help you figure out options, including talking to your professors.</p>
+${links(["star","counseling","dos","finaid"])}`},
+
+  "abroad":{pillar:"Involve",title:"Study abroad on a budget",
+    meta:"Studying abroad isn't only for students whose families can pay for it.",
+    side:sideLinks("Official links",["oie","gilman","finaid"]),
+    body:`
+<p>Employers and grad schools notice international experience, and it's one of the few times in life you can live abroad with a support system around you.</p>
+<h2>The Gilman Scholarship</h2>
+<ul>
+  <li><strong>Who:</strong> U.S. citizens receiving a Federal Pell Grant.</li>
+  <li><strong>What:</strong> Up to $5,000 for a credit-bearing study abroad program or internship, with extra funding for critical-need languages.</li>
+  <li><strong>When:</strong> Two deadlines a year, in early March and early October.</li>
+  <li><strong>Note:</strong> You can only receive it once, so pick the program that matters most.</li>
+</ul>
+<h2>Making the numbers work</h2>
+<ol>
+  <li>Meet with GT's study abroad office early, a year ahead if you can.</li>
+  <li>Ask financial aid how your aid applies to the program you're considering.</li>
+  <li>Compare total cost, not just tuition. Some programs cost less than a semester in Atlanta.</li>
+</ol>
+${links(["oie","gilman","finaid"])}`},
+
+  "glossary":{pillar:"Plan",title:"College words nobody explained",
+    meta:"If you didn't grow up hearing these, you're not behind. Here's what they actually mean.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<dl class="gloss">
+  <dt>Office hours</dt><dd>Times when a professor or TA is available to help. They're for everyone, not just students who are struggling, and going is one of the best ways to get a recommendation letter later.</dd>
+  <dt>Syllabus</dt><dd>The course rulebook: grading, due dates, exam dates and policies. Read it the first week.</dd>
+  <dt>Credit hours</dt><dd>How much a course counts toward your degree. Most courses are 3 or 4. Full time is 12 or more per semester.</dd>
+  <dt>Prerequisite</dt><dd>A course you must pass before you can register for another one.</dd>
+  <dt>Drop vs. withdraw</dt><dd>Dropping during registration erases a course from your record. Withdrawing later leaves a W on your transcript and still counts as attempted hours for HOPE.</dd>
+  <dt>OSCAR</dt><dd>GT's student system for registering, viewing your schedule and filing the GT App.</dd>
+  <dt>Degree Works</dt><dd>A tool that shows which degree requirements you've finished and what's left.</dd>
+  <dt>Bursar</dt><dd>The office that sends your bill and takes payments.</dd>
+  <dt>Cost of attendance</dt><dd>GT's estimate of a full year's cost: tuition, fees, housing, food, books and personal expenses. Aid is calculated against this number.</dd>
+  <dt>Student Aid Index (SAI)</dt><dd>The number the FAFSA calculates from your family's finances. Lower means more need-based aid.</dd>
+  <dt>Pell Grant</dt><dd>Federal money for students with financial need. You don't pay it back.</dd>
+  <dt>Subsidized vs. unsubsidized loan</dt><dd>With a subsidized loan, the government pays the interest while you're in school. With unsubsidized, interest starts adding up right away.</dd>
+  <dt>Work-study</dt><dd>A part-time job funded by federal aid. You earn a paycheck for the hours you work.</dd>
+  <dt>Co-op</dt><dd>Alternating semesters of school and full-time paid work, usually with one employer.</dd>
+  <dt>REU</dt><dd>Research Experience for Undergraduates: paid summer research programs funded by the National Science Foundation.</dd>
+  <dt>PI</dt><dd>Principal investigator, the professor who runs a research lab.</dd>
+  <dt>Letter of recommendation</dt><dd>A letter from a professor or supervisor vouching for you. Ask at least a month ahead and send them your resume.</dd>
+</dl>`},
+
+  "career-fair":{pillar:"Advise",title:"Career fair",
+    meta:"Based on a Career Fair Prep Seminar at Georgia Tech. Written by Beth Patterson, February 2024.",
+    side:sideLinks("Official links",["career","coop","star"])+`<div class="box"><h4>Bring with you</h4><ul><li>10–15 printed resumes</li><li>A pen and notepad</li><li>A tablet to show a project (optional)</li></ul></div>`,
+    body:`
+<h2>Prepare and strategize</h2>
+<p><mark>Research the companies</mark> you want to meet before the day.</p>
+<ul>
+  <li>Learn each company's business model, mission and values.</li>
+  <li>To find a meaningful career, think of it as you interviewing the company.</li>
+  <li>Find out who their clients are, so you know who you would be working with.</li>
+  <li>Look at what the company has actually produced.</li>
+</ul>
+<p>Know exactly who you are going to talk to beforehand, and <mark>prepare questions</mark> to ask them. Ask what you genuinely want to know, centered on why the company interests you. Skip anything you could find online.</p>
+<h3>Resume</h3>
+<ul>
+  <li>Tailor it to each job.</li>
+  <li><mark>Keep it to one page.</mark> Two only for a specific role. It's an introduction, not everything you've done.</li>
+  <li>Use keywords and strong action phrases.</li>
+  <li>Order everything from most recent to least recent.</li>
+  <li>When you list a skill, show how you used it (for example, what you built in MATLAB).</li>
+  <li>Count class projects as research experience if you need to, and describe your leadership roles.</li>
+</ul>
+<h3>What to wear</h3>
+<ul>
+  <li>Business casual. Don't own any? <a href="https://star.studentlife.gatech.edu/" target="_blank" rel="noopener">Campus Closet</a> (part of STAR) lends professional attire for career fairs and interviews.</li>
+  <li>Check what company employees wear through the alumni network or LinkedIn. Tech companies may be more casual.</li>
+  <li>Leave your backpack behind.</li>
+</ul>
+<h2>Talking to a recruiter</h2>
+<p>It's just a conversation, and it shouldn't feel stiff. Interview <em>them</em>, and notice how you feel while you talk. Build your pitch on three pillars:</p>
+<ol class="pillars3">
+  <li><strong>Introduce yourself.</strong></li>
+  <li><strong>Describe what led you here.</strong> Bring up real experience rather than easy personal details.</li>
+  <li><strong>Say what excites you about the company</strong> and why you're talking to this employer in particular. This is the most important part.</li>
+</ol>
+<p>Practice until your pitch is <mark>short and compelling</mark>. Don't linger, and don't interrupt someone else's conversation with a recruiter.</p>
+<h2>After the fair</h2>
+<div class="callout">Send a thank-you email within 24 hours. Thank them for their time, mention what you enjoyed talking about, and say you look forward to hearing from them.</div>
+<h2>Good to know</h2>
+<ul>
+  <li>A career fair is for learning about careers. A job fair is for hiring.</li>
+  <li>Don't ask about salary, or questions whose answer "depends."</li>
+  <li>Want the free stuff? Take it at the end, and use it as one last quick chance to engage.</li>
+</ul>`},
+
+  "advisor":{pillar:"Advise",title:"How to prepare for your advisor meeting",
+    meta:"Student-written guide.",
+    side:sideLinks("Official links",["advising","coaching","firstgen"]),
+    body:`
+<h2>Before the meeting</h2>
+<ol>
+  <li><strong>Write down your questions.</strong> Classes, requirements, timeline worries: list everything, even small things.</li>
+  <li><strong>Make a spreadsheet.</strong> Track your planned courses by semester so you and your advisor can look at the same plan. Degree Works shows which requirements you've already met.</li>
+  <li><strong>Email your questions ahead of time.</strong> Your advisor can come prepared, and the meeting goes further.</li>
+</ol>
+<h2>If your advisor doesn't answer</h2>
+<ul>
+  <li>Advisors get flooded right before registration. Send one polite follow-up after a few business days, with your questions in the email itself.</li>
+  <li>Contact your major's undergraduate office. Most schools have more than one advisor and a front desk that can route you.</li>
+  <li>For study skills or a semester plan, book an Academic Coach. You don't need a referral.</li>
+  <li>Still stuck? First-Gen Student Initiatives can connect you to the right person.</li>
+</ul>
+${links(["advising","coaching","firstgen"])}`},
+
+  "registration":{pillar:"Plan",title:"Registration walkthrough",
+    meta:"The pitfalls nobody warns you about, plus the official tutorials.",
+    side:`<div class="box"><h4>Always check</h4><p>Dates change every term. The Registrar's academic calendar is the source of truth.</p></div>`+FIRSTGEN_SIDE,
+    body:`
+<h2>Common pitfalls</h2>
+<ul>
+  <li><strong>Holds.</strong> A hold on your account can block registration entirely. Check for holds a week before your registration time, not the morning of.</li>
+  <li><strong>No backup plan.</strong> Popular sections fill fast. Build a second and third schedule before your time ticket opens.</li>
+  <li><strong>Assuming you can waitlist.</strong> Waitlists exist only for some departments and courses. Check before you count on one.</li>
+  <li><strong>Missing the drop deadline.</strong> Dropping before registration closes is different from withdrawing later. Know both dates.</li>
+</ul>
+<h2>Official tutorials and tools</h2>
+<p>The Registrar has step-by-step registration tutorials and the full Schedule of Classes.</p>
+${links(["registrar","registrarHome","advising"])}`},
+
+  "timeline":{pillar:"Plan",title:"Four-year timeline",
+    meta:"A rough map of what to focus on each year. Your path can look different, and that's fine.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<h2 class="year">First year</h2>
+<ul>
+  <li>Meet your advisor and learn Degree Works.</li>
+  <li>Join a first-gen peer mentoring group and one or two student orgs.</li>
+  <li>Use tutoring early, before the first exam.</li>
+  <li>Fill out the FAFSA and the GT scholarship application before the deadline. You do this every year.</li>
+</ul>
+<h2 class="year">Second year</h2>
+<ul>
+  <li>Look for a research lab or VIP team.</li>
+  <li>Go to the career fair to practice, even if you aren't applying yet.</li>
+  <li>Sophomore year is the best time to start a co-op if you want one.</li>
+</ul>
+<h2 class="year">Third year</h2>
+<ul>
+  <li>Apply for internships or keep up co-op rotations.</li>
+  <li>Planning on grad, med or law school? Meet a pre-professional advisor and plan entrance exams.</li>
+  <li>Take on a leadership role in a club you care about.</li>
+</ul>
+<h2 class="year">Fourth year</h2>
+<ul>
+  <li>Apply for full-time jobs or graduate programs early in the fall.</li>
+  <li>Check graduation requirements with your advisor and the Registrar.</li>
+  <li>Walk in the First-Generation Recognition Ceremony. You earned it.</li>
+</ul>
+${links(["registrarHome","finaid","firstgen"])}`},
+
+  "money":{pillar:"Plan",title:"Paying for college",
+    meta:"Financial aid, scholarships and work-study.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<p>Financial aid isn't a one-time application. To be considered each year, complete both the FAFSA and the Georgia Tech scholarship and aid application (the GT App) by the posted deadlines. Check the box on the GT App if you want Federal Work-Study.</p>
+<h3>The G. Wayne Clough Georgia Tech Promise</h3>
+<p>Tech Promise covers 100% of financial need, including housing, meals, books and tuition, for students from low-income Georgia families. It combines grants, HOPE or Zell Miller, GT funds and a work-study job, so you can graduate without debt. Students are selected before their first semester based on their aid applications, so finishing the FAFSA and GT App by January 31 is how you get considered.</p>
+<p>If a bill or aid offer doesn't make sense, contact the financial aid office directly. Asking is normal, and they handle these questions every day. See <a href="#/guide/fafsa">FAFSA, step by step</a> and the <a href="#/guide/calendar">deadline calendar</a>.</p>
+${links(["finaid","fws","studentaid"])}`},
+
+  "first-gen":{pillar:"Involve",title:"First-gen community",
+    meta:"Find the people who get it.",
+    side:"",
+    body:`
+<p>GT has an office dedicated to first-generation students. Through First-Generation Student Initiatives you can:</p>
+<ul>
+  <li>Get paired with an experienced first-gen peer mentor in your first year (First-Gen Jackets).</li>
+  <li>Join the First-Gen Student Organization.</li>
+  <li>Shadow alumni and employers in a field you're curious about through the First-Generation Shadow Program.</li>
+  <li>Celebrate during First-Generation College Celebration Week each November.</li>
+  <li>Walk in the First-Generation Recognition Ceremony when you graduate.</li>
+</ul>
+${links(["firstgen"])}`},
+
+  "greek":{pillar:"Involve",title:"Greek life",
+    meta:"Fraternities and sororities at GT.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<p>GT has 55 chapters across four councils, and each council runs its own recruitment or intake process with different dates and costs. Ask about dues and other costs up front, including whether a chapter offers payment plans or scholarships. Joining is a time and money commitment, and it's fine if it isn't the right fit for you.</p>
+${links(["greek"])}`},
+
+  "volunteer":{pillar:"Involve",title:"Volunteering",
+    meta:"GT's motto is Progress and Service.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<p>MOVE (Mobilizing Opportunities for Volunteer Experiences) is GT's umbrella org for community service. It organizes regular volunteer trips around Atlanta and Into the Streets, a day of service each fall that's an easy way for new students to meet people. Civic Engagement also runs Alternative Service Breaks.</p>
+<p>Heading toward medicine or another health career? Consistent service over time, especially with underserved communities, matters more on applications than a long list of one-time events. See <a href="#/guide/pre-health">Pre-health</a>.</p>
+${links(["civic","engage"])}`},
+
+  "campus-jobs":{pillar:"Involve",title:"Campus jobs",
+    meta:"Paid roles that fit around a class schedule.",
+    side:sideLinks("Official links",["hrjobs","fws","career"]),
+    body:`
+<h2>Jobs students hold on campus</h2>
+<ul>
+  <li>Teaching assistant</li>
+  <li>Tutor or PLUS leader</li>
+  <li>Student assistant at the Student Center</li>
+  <li>Peer advisor</li>
+  <li>Resident assistant</li>
+  <li>Lifeguard or Campus Recreation Center staff</li>
+  <li>IT support</li>
+  <li>Federal Work-Study positions</li>
+</ul>
+<h2>Good to know</h2>
+<ul>
+  <li>Most campus jobs are listed on CareerBuzz.</li>
+  <li>During the semester, you can work at most 20 hours a week across all campus jobs.</li>
+  <li>Work-Study jobs have "FWS" in the title and are only open to students with a Work-Study award.</li>
+</ul>
+${links(["hrjobs","fws","career"])}`},
+
+  "housing":{pillar:"Learn",title:"On- and off-campus housing",
+    meta:"Where to live, and how to find it.",
+    side:FIRSTGEN_SIDE,
+    body:`
+<h3>On campus</h3>
+<p>Housing and Residence Life handles applications and timelines. Follow their deadlines closely, since spaces can run out.</p>
+<h3>Off campus</h3>
+<p>GT's Off-Campus Housing Marketplace lists leases near campus, plus roommate and sublease boards and short modules on how renting works. If you've never signed a lease, do those first. Each spring there's an Off-Campus Housing Fair where you can meet property managers in person.</p>
+${links(["housing","offcampus"])}`}
+};
+
+
+/* ---------- Upcoming deadlines ---------- */
+const DEADLINES=[
+  {m:9,d:1,when:"Oct 1",what:"FAFSA and GT App open",why:"File early. Some aid runs out.",g:"fafsa"},
+  {m:9,d:5,when:"Early Oct",what:"Gilman Scholarship (fall)",why:"Up to $5,000 abroad for Pell recipients.",g:"abroad"},
+  {m:11,d:1,when:"Nov–Dec",what:"Goldwater and Truman campus deadlines",why:"Talk to Pre-Graduate advising now.",g:"calendar"},
+  {m:9,d:20,when:"October",what:"MCAT registration opens",why:"Get AAMC Fee Assistance approved first.",g:"pre-health"},
+  {m:11,d:5,when:"Dec 1–15",what:"Most PhD applications due",why:"Most STEM PhDs pay you a stipend.",g:"pre-grad"},
+  {m:0,d:31,when:"Jan 31",what:"GT financial aid priority deadline",why:"FAFSA and GT App must be in.",g:"fafsa"},
+  {m:1,d:1,when:"Jan–Feb",what:"Summer research (REU) applications",why:"Paid summer research, often with housing.",g:"calendar"},
+  {m:2,d:5,when:"Early Mar",what:"Gilman Scholarship (spring)",why:"Second chance each year.",g:"abroad"},
+  {m:2,d:15,when:"March",what:"Off-Campus Housing Fair",why:"Lock in next year's lease.",g:"housing"},
+  {m:4,d:5,when:"Early May",what:"AMCAS opens for med school",why:"Rolling admissions. Submit early.",g:"pre-health"},
+  {m:4,d:10,when:"End of spring",what:"HOPE and Zell Miller GPA check",why:"Know where your HOPE GPA stands.",g:"hope"},
+  {m:7,d:20,when:"Late summer",what:"Fulbright campus deadlines",why:"For seniors planning a year abroad.",g:"calendar"}
+];
+(function(){
+  const now=new Date();const t=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const next=DEADLINES.map(x=>{let d=new Date(t.getFullYear(),x.m,x.d);if(d<t)d=new Date(t.getFullYear()+1,x.m,x.d);return{...x,date:d}})
+    .sort((a,b)=>a.date-b.date).slice(0,3);
+  const el=document.getElementById('dl');
+  if(el) el.innerHTML=next.map(x=>`<a href="#/guide/${x.g}"><span class="when">${x.when}</span><span class="what">${x.what}</span><span class="why">${x.why}</span></a>`).join('');
+})();
+
+/* ---------- UI ---------- */
+const pillarsEl=[...document.querySelectorAll('.pillar')];
+function showPillar(key){
+  pillarsEl.forEach(b=>{const on=b.dataset.p===key;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1});
+  document.getElementById('panel').setAttribute('aria-labelledby','t-'+key);
+  const p=PILLARS[key];
+  document.getElementById('panel-intro').textContent=p.intro;
+  document.getElementById('groups').innerHTML=p.groups.map(g=>`<div class="group"><h3>${g.h}</h3><ul>${
+    g.items.map(([label,id,kind])=>`<li><a class="topic" href="#/guide/${id}">${label}<span class="tag ${kind==='g'?'ready':'res'}">${kind==='g'?'Guide':'Resources'}</span></a></li>`).join('')
+  }</ul></div>`).join('');
+  try{localStorage.setItem('ptbf-pillar',key)}catch(e){}
+}
+pillarsEl.forEach((b,i)=>{
+  b.addEventListener('click',()=>showPillar(b.dataset.p));
+  b.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+      const n=pillarsEl[(i+(e.key==='ArrowRight'?1:-1)+4)%4];n.focus();showPillar(n.dataset.p);
+    }
+  });
+});
+let start='plan';try{const s=localStorage.getItem('ptbf-pillar');if(s&&PILLARS[s])start=s}catch(e){}
+showPillar(start);
+
+function route(){
+  const m=location.hash.match(/^#\/guide\/([\w-]+)/);
+  if(m&&GUIDES[m[1]]){
+    const g=GUIDES[m[1]];
+    document.getElementById('r-crumb').textContent=g.pillar;
+    document.getElementById('r-title').textContent=g.title;
+    document.getElementById('r-meta').textContent=g.meta;
+    document.getElementById('r-body').innerHTML=g.body;
+    document.getElementById('r-side').innerHTML=g.side||'';
+    document.body.classList.add('reading');
+    document.title=g.title+' — Proud to be First';
+    window.scrollTo(0,0);
+  }else{
+    const wasReading=document.body.classList.contains('reading');
+    document.body.classList.remove('reading');
+    document.title='Proud to be First — Georgia Tech first-gen resource hub';
+    if(wasReading){const h=document.getElementById('hub');h&&h.scrollIntoView()}
+  }
+}
+document.querySelectorAll('[data-home]').forEach(a=>a.addEventListener('click',e=>{
+  if(document.body.classList.contains('reading')){
+    e.preventDefault();const id=a.getAttribute('href').slice(1);
+    history.pushState(null,'','#/');route();
+    document.getElementById(id).scrollIntoView();
+  }
+}));
+window.addEventListener('hashchange',route);
+route();
+</script>
+
+</body>
+</html>
